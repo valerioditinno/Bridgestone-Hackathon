@@ -17,7 +17,7 @@ exports.list_all_tasks = function(req, res) {
 
 exports.login = function(req, res) {
   console.log('req.params.Username ' + req.body + " " + req.params);
-  console.log(JSON.stringify(req.params));
+  console.log(JSON.stringify(req.body));
   User.findById(req.params.Username, function(err, user) {
     if (err)
       res.send(err);
