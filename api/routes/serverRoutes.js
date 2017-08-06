@@ -42,7 +42,6 @@ module.exports = function(app) {
     });
 
     app.post('/login',function (req, res) {
-        console.log('login');
         controller.login(req, res);
     });
 };

@@ -28,8 +28,9 @@ exports.list_all_users = function(req, res) {
 exports.login = function(req, res) {
   var message = "";
   var time = moment();
-  var time_format = time.format('x');
+  var time_format = time.format('X');
   User.findOne({ "Username" : req.body.Username}, function(err, user) {
+    console.log('login: ' + req.body.Username);
     if (err)
       message = err;
     else{
@@ -44,8 +45,6 @@ exports.login = function(req, res) {
     }
     res.send(message);
   });
-
-
 };
 
 
