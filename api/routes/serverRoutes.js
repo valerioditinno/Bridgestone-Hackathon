@@ -1,0 +1,46 @@
+'use strict';
+var controller = require ("../controllers/serverController");
+
+module.exports = function(app) {
+/*
+    router.use(function(req, res, next) {
+        console.log('%s %s %s', req.method, req.url, req.path);
+        next();
+    });
+*/
+    app.get('/', function (req, res) {
+        res.send(test(req));
+    });
+
+    app.get('/listusers', function(req, res){
+        controller.list_all_tasks(req, res);
+    });
+    
+    app.post('/', function (req, res) {
+        res.send(test(req));
+    });
+
+    app.post('/createtask', function(req, res){
+        res.send(create_a_task(req, res));
+    });
+    
+    app.post('/addinfo', function(req,res){
+        controller.create_a_task(req,res);
+    });
+};
+
+function test(req){
+    console.log ("ecco una POST");
+   // console.log(req.body);  
+    console.log(req.params);
+    console.log ("ecco una");
+    //logger.info("test");
+    return "hello";
+    controller.create_a_task(req);
+}
+
+function create_a_task(req, res){
+    console.log(req.body);
+    controller.create_a_task_by_name(req.body, res);
+    return "done";
+}
