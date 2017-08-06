@@ -18,12 +18,18 @@ exports.list_all_tasks = function(req, res) {
 exports.login = function(req, res) {
   console.log('req.params.Username ' + req.body.Username + " " + req.params);
   console.log(JSON.stringify(req.body));
-  User.find({ "Username" : req.body.Username}, function(err, user) {
+  var message = "";
+  User.findOne({ "Username" : req.body.Username}, function(err, user) {
     if (err)
-      res.send(err);
-   
-    console.log(user);
-    res.json(user);
+      message = err;
+    else{
+      if(typeof req.body.Password !== 'undefined' && user != null && req.body.Password == user.Password){
+        message = "OK";
+      }else{
+        message = "KO";
+      }
+    }
+    res.send(message);
   });
 
 
