@@ -42,5 +42,20 @@ var UserSchema = new Schema({
   }
 });
 
+
+var SessionSchema = new Schema({
+  Username: {
+    type: String
+  },
+  Timestamp: {
+    type: String
+  },
+  Created_date: {
+    type: Date,
+    default: Date.now
+  }
+});
+
 module.exports = mongoose.model('Tasks', TaskSchema);
 module.exports = mongoose.model('Users', UserSchema, 'Users');
+module.exports = mongoose.model('Sessions', SessionSchema, 'Sessions');

@@ -1,9 +1,12 @@
 'use strict';
 
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'), 
+    moment = require('moment');
+
 var Task = mongoose.model('Tasks');
 var User = mongoose.model('Users');
+var Session = mongoose.model('Sessions');
 //var DataFromPhone = mongoose.model('DataFromPhones');
 
 exports.list_all_tasks = function(req, res) {
@@ -23,15 +26,18 @@ exports.list_all_users = function(req, res) {
 };
 
 exports.login = function(req, res) {
-  console.log('req.params.Username ' + req.body.Username + " " + req.params);
-  console.log(JSON.stringify(req.body));
   var message = "";
+  var time = moment();
+  var time_format = time.format('x');
   User.findOne({ "Username" : req.body.Username}, function(err, user) {
     if (err)
       message = err;
     else{
       if(typeof req.body.Password !== 'undefined' && user != null && req.body.Password == user.Password){
-        message = "OK";
+        message = "OK " + time_format;
+        var session = new Session({"Username": user.Username, "Timestamp": time_format});
+        session.save(function(err, session_res) {
+        });
       }else{
         message = "KO";
       }
