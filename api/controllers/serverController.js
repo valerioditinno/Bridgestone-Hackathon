@@ -16,17 +16,21 @@ exports.list_all_tasks = function(req, res) {
 
 
 exports.login = function(req, res) {
-  console.log('req.params.Username ' + req.body + " " + req.params);
+  console.log('req.params.Username ' + req.body.Username + " " + req.params);
   console.log(JSON.stringify(req.body));
-  User.findById(req.params.Username, function(err, user) {
+  User.find({ "Username" : req.body.Username}, function(err, user) {
     if (err)
       res.send(err);
+   
+    console.log(user);
     res.json(user);
   });
+
+
 };
 
 
-exports.create_a_task = function(req, res) {
+exports.create_a_task = function(req, res) { 
   var new_task = new Task(req.body);
   console.log(new_task);
   new_task.save(function(err, task) {
