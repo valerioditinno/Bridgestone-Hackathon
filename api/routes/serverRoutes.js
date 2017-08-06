@@ -14,7 +14,7 @@ module.exports = function(app) {
     });
 
     app.get('/listusers', function(req, res){
-        controller.list_all_tasks(req, res);
+        controller.list_all_users(req, res);
     });
     
     app.post('/', function (req, res) {

@@ -14,6 +14,13 @@ exports.list_all_tasks = function(req, res) {
   });
 };
 
+exports.list_all_users = function(req, res) {
+  User.find({}, function(err, users) {
+    if (err)
+      res.send(err);
+    res.json(users);
+  });
+};
 
 exports.login = function(req, res) {
   console.log('req.params.Username ' + req.body.Username + " " + req.params);
