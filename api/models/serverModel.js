@@ -19,6 +19,9 @@ var TaskSchema = new Schema({
   UserID: {
     type: String
   },
+  Session: {
+    type: String
+  },
   Created_date: {
     type: Date,
     default: Date.now
