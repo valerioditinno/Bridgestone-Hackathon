@@ -3,7 +3,7 @@
 
 var mongoose = require('mongoose');
 var Task = mongoose.model('Tasks');
-//var User = mongoose.model('Users');
+var User = mongoose.model('Users');
 //var DataFromPhone = mongoose.model('DataFromPhones');
 
 exports.list_all_tasks = function(req, res) {
@@ -11,6 +11,17 @@ exports.list_all_tasks = function(req, res) {
     if (err)
       res.send(err);
     res.json(task);
+  });
+};
+
+
+exports.login = function(req, res) {
+  console.log('req.params.Username ' + req.body + " " + req.params);
+  console.log(JSON.stringify(req.params));
+  User.findById(req.params.Username, function(err, user) {
+    if (err)
+      res.send(err);
+    res.json(user);
   });
 };
 

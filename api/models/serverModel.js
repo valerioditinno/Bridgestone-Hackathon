@@ -25,4 +25,22 @@ var TaskSchema = new Schema({
   }
 });
 
+
+var UserSchema = new Schema({
+  Username: {
+    type: String
+  },
+  Password: {
+    type: String
+  },
+  UserID: {
+    type: String
+  },
+  Created_date: {
+    type: Date,
+    default: Date.now
+  }
+});
+
 module.exports = mongoose.model('Tasks', TaskSchema);
+module.exports = mongoose.model('Users', UserSchema);

@@ -40,6 +40,11 @@ module.exports = function(app) {
     app.get('/data/json*',function (req, res) {
         res.sendFile(path.join(__dirname + '/view/data/maps_20170722.json'));
     });
+
+    app.post('/login',function (req, res) {
+        console.log('login');
+        controller.login(req, res);
+    });
 };
 
 function test(req){
