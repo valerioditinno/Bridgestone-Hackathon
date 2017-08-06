@@ -1,5 +1,6 @@
 'use strict';
 var controller = require ("../controllers/serverController");
+var path = require('path');
 
 module.exports = function(app) {
 /*
@@ -26,6 +27,18 @@ module.exports = function(app) {
     
     app.post('/addinfo', function(req,res){
         controller.create_a_task(req,res);
+    });
+
+    app.get('/maps', function(req, res) {
+        res.sendFile(path.join(__dirname + '/view/maps.html'));
+    });
+
+    app.get('/js/jquery',function (req, res) {
+        res.sendFile(path.join(__dirname + '/view/js/jquery-3.2.1.min.js'));
+    });
+
+    app.get('/data/json*',function (req, res) {
+        res.sendFile(path.join(__dirname + '/view/data/maps_20170722.json'));
     });
 };
 
