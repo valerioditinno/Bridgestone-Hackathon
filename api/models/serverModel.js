@@ -59,6 +59,39 @@ var SessionSchema = new Schema({
   }
 });
 
+
+var TaskAvgSchema = new Schema({
+  x: {
+    type: String
+  },
+  y: {
+    type: String
+  },
+  z: {
+    type: String
+  },
+  lat: {
+    type: String
+  },
+  lng: {
+    type: String
+  },
+  UserID: {
+    type: String
+  },
+  Session: {
+    type: String
+  },
+  Timestamp:{
+    type: String
+  },
+  Created_date: {
+    type: Date,
+    default: Date.now
+  }
+});
+
 module.exports = mongoose.model('Tasks', TaskSchema);
+module.exports = mongoose.model('TasksAvg', TaskAvgSchema, 'TasksAvg');
 module.exports = mongoose.model('Users', UserSchema, 'Users');
 module.exports = mongoose.model('Sessions', SessionSchema, 'Sessions');

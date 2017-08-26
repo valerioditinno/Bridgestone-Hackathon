@@ -1,0 +1,551 @@
+[
+  {
+    "lat": 41.84643,
+    "lng": 12.62871,
+    "avg_sum_x": -0.012777778,
+    "avg_sum_x_abs": 0.057777778,
+    "avg_sum_y_abs": 0.057777778,
+    "avg_sum_z": -0.013055556,
+    "avg_sum_z_abs": 0.058055556
+  },
+  {
+    "lat": 41.84656,
+    "lng": 12.6287,
+    "avg_sum_x": 0.025150301,
+    "avg_sum_x_abs": 0.033466934,
+    "avg_sum_y_abs": 0.033366733,
+    "avg_sum_z": 0.025150301,
+    "avg_sum_z_abs": 0.033366733
+  },
+  {
+    "lat": 41.84671,
+    "lng": 12.6287,
+    "avg_sum_x": 0.01122449,
+    "avg_sum_x_abs": 0.092857143,
+    "avg_sum_y_abs": 0.090816327,
+    "avg_sum_z": 0.01122449,
+    "avg_sum_z_abs": 0.090816327
+  },
+  {
+    "lat": 41.84687,
+    "lng": 12.62863,
+    "avg_sum_x": -0.003,
+    "avg_sum_x_abs": 0.054,
+    "avg_sum_y_abs": 0.053,
+    "avg_sum_z": -0.003,
+    "avg_sum_z_abs": 0.053
+  },
+  {
+    "lat": 41.84703,
+    "lng": 12.62866,
+    "avg_sum_x": -0.025252525,
+    "avg_sum_x_abs": 0.055555556,
+    "avg_sum_y_abs": 0.055555556,
+    "avg_sum_z": -0.025252525,
+    "avg_sum_z_abs": 0.055555556
+  },
+  {
+    "lat": 41.84716,
+    "lng": 12.62861,
+    "avg_sum_x": -0.002020202,
+    "avg_sum_x_abs": 0.096969697,
+    "avg_sum_y_abs": 0.096969697,
+    "avg_sum_z": -0.001010101,
+    "avg_sum_z_abs": 0.097979798
+  },
+  {
+    "lat": 41.84748,
+    "lng": 12.62846,
+    "avg_sum_x": 0.000671141,
+    "avg_sum_x_abs": 0.095973154,
+    "avg_sum_y_abs": 0.095973154,
+    "avg_sum_z": 0.000671141,
+    "avg_sum_z_abs": 0.095973154
+  },
+  {
+    "lat": 41.84766,
+    "lng": 12.62831,
+    "avg_sum_x": -0.036,
+    "avg_sum_x_abs": 0.07,
+    "avg_sum_y_abs": 0.072,
+    "avg_sum_z": -0.038,
+    "avg_sum_z_abs": 0.07
+  },
+  {
+    "lat": 41.84777,
+    "lng": 12.62826,
+    "avg_sum_x": -0.022916667,
+    "avg_sum_x_abs": 0.08125,
+    "avg_sum_y_abs": 0.08125,
+    "avg_sum_z": -0.022916667,
+    "avg_sum_z_abs": 0.08125
+  },
+  {
+    "lat": 41.84788,
+    "lng": 12.62822,
+    "avg_sum_x": -0.016,
+    "avg_sum_x_abs": 0.098,
+    "avg_sum_y_abs": 0.1,
+    "avg_sum_z": -0.014,
+    "avg_sum_z_abs": 0.098
+  },
+  {
+    "lat": 41.84798,
+    "lng": 12.62819,
+    "avg_sum_x": 0.014583333,
+    "avg_sum_x_abs": 0.095833333,
+    "avg_sum_y_abs": 0.09375,
+    "avg_sum_z": 0.0125,
+    "avg_sum_z_abs": 0.095833333
+  },
+  {
+    "lat": 41.8481,
+    "lng": 12.62815,
+    "avg_sum_x": -0.014,
+    "avg_sum_x_abs": 0.084,
+    "avg_sum_y_abs": 0.082,
+    "avg_sum_z": -0.014,
+    "avg_sum_z_abs": 0.082
+  },
+  {
+    "lat": 41.84821,
+    "lng": 12.62809,
+    "avg_sum_x": -0.027083333,
+    "avg_sum_x_abs": 0.1,
+    "avg_sum_y_abs": 0.102083333,
+    "avg_sum_z": -0.025,
+    "avg_sum_z_abs": 0.1
+  },
+  {
+    "lat": 41.84834,
+    "lng": 12.62805,
+    "avg_sum_x": -0.016,
+    "avg_sum_x_abs": 0.1,
+    "avg_sum_y_abs": 0.1,
+    "avg_sum_z": -0.016,
+    "avg_sum_z_abs": 0.1
+  },
+  {
+    "lat": 41.84846,
+    "lng": 12.628,
+    "avg_sum_x": -0.002083333,
+    "avg_sum_x_abs": 0.091666667,
+    "avg_sum_y_abs": 0.089583333,
+    "avg_sum_z": -0.002083333,
+    "avg_sum_z_abs": 0.089583333
+  },
+  {
+    "lat": 41.84857,
+    "lng": 12.62795,
+    "avg_sum_x": 0.01,
+    "avg_sum_x_abs": 0.092,
+    "avg_sum_y_abs": 0.09,
+    "avg_sum_z": 0.012,
+    "avg_sum_z_abs": 0.088
+  },
+  {
+    "lat": 41.84868,
+    "lng": 12.62791,
+    "avg_sum_x": -0.045833333,
+    "avg_sum_x_abs": 0.129166667,
+    "avg_sum_y_abs": 0.125,
+    "avg_sum_z": -0.047916667,
+    "avg_sum_z_abs": 0.127083333
+  },
+  {
+    "lat": 41.84881,
+    "lng": 12.62785,
+    "avg_sum_x": 0.002,
+    "avg_sum_x_abs": 0.108,
+    "avg_sum_y_abs": 0.106,
+    "avg_sum_z": 0.004,
+    "avg_sum_z_abs": 0.108
+  },
+  {
+    "lat": 41.84891,
+    "lng": 12.62781,
+    "avg_sum_x": -0.0375,
+    "avg_sum_x_abs": 0.1125,
+    "avg_sum_y_abs": 0.116666667,
+    "avg_sum_z": -0.035416667,
+    "avg_sum_z_abs": 0.11875
+  },
+  {
+    "lat": 41.84903,
+    "lng": 12.62776,
+    "avg_sum_x": -0.010204082,
+    "avg_sum_x_abs": 0.13877551,
+    "avg_sum_y_abs": 0.140816327,
+    "avg_sum_z": 0.002040816,
+    "avg_sum_z_abs": 0.140816327
+  },
+  {
+    "lat": 41.84915,
+    "lng": 12.62772,
+    "avg_sum_x": 0.012244898,
+    "avg_sum_x_abs": 0.1,
+    "avg_sum_y_abs": 0.102040816,
+    "avg_sum_z": 0.012244898,
+    "avg_sum_z_abs": 0.102040816
+  },
+  {
+    "lat": 41.84926,
+    "lng": 12.62768,
+    "avg_sum_x": -0.012,
+    "avg_sum_x_abs": 0.1,
+    "avg_sum_y_abs": 0.096,
+    "avg_sum_z": -0.01,
+    "avg_sum_z_abs": 0.098
+  },
+  {
+    "lat": 41.84938,
+    "lng": 12.62763,
+    "avg_sum_x": -0.010416667,
+    "avg_sum_x_abs": 0.047916667,
+    "avg_sum_y_abs": 0.047916667,
+    "avg_sum_z": -0.010416667,
+    "avg_sum_z_abs": 0.047916667
+  },
+  {
+    "lat": 41.84948,
+    "lng": 12.62759,
+    "avg_sum_x": 0.012,
+    "avg_sum_x_abs": 0.058,
+    "avg_sum_y_abs": 0.06,
+    "avg_sum_z": 0.016,
+    "avg_sum_z_abs": 0.06
+  },
+  {
+    "lat": 41.84959,
+    "lng": 12.62754,
+    "avg_sum_x": 0.008333333,
+    "avg_sum_x_abs": 0.035416667,
+    "avg_sum_y_abs": 0.0375,
+    "avg_sum_z": 0.010416667,
+    "avg_sum_z_abs": 0.035416667
+  },
+  {
+    "lat": 41.84969,
+    "lng": 12.6275,
+    "avg_sum_x": -0.020408163,
+    "avg_sum_x_abs": 0.063265306,
+    "avg_sum_y_abs": 0.06122449,
+    "avg_sum_z": -0.02244898,
+    "avg_sum_z_abs": 0.063265306
+  },
+  {
+    "lat": 41.84979,
+    "lng": 12.62746,
+    "avg_sum_x": -0.02244898,
+    "avg_sum_x_abs": 0.059183673,
+    "avg_sum_y_abs": 0.059183673,
+    "avg_sum_z": -0.02244898,
+    "avg_sum_z_abs": 0.059183673
+  },
+  {
+    "lat": 41.8499,
+    "lng": 12.62743,
+    "avg_sum_x": -0.02244898,
+    "avg_sum_x_abs": 0.136734694,
+    "avg_sum_y_abs": 0.140816327,
+    "avg_sum_z": -0.02244898,
+    "avg_sum_z_abs": 0.140816327
+  },
+  {
+    "lat": 41.85,
+    "lng": 12.62737,
+    "avg_sum_x": -0.002,
+    "avg_sum_x_abs": 0.07,
+    "avg_sum_y_abs": 0.066,
+    "avg_sum_z": -5.55112e-19,
+    "avg_sum_z_abs": 0.068
+  },
+  {
+    "lat": 41.8501,
+    "lng": 12.62733,
+    "avg_sum_x": -0.039583333,
+    "avg_sum_x_abs": 0.095833333,
+    "avg_sum_y_abs": 0.09375,
+    "avg_sum_z": -0.0375,
+    "avg_sum_z_abs": 0.095833333
+  },
+  {
+    "lat": 41.8502,
+    "lng": 12.6273,
+    "avg_sum_x": -0.046,
+    "avg_sum_x_abs": 0.1,
+    "avg_sum_y_abs": 0.098,
+    "avg_sum_z": -0.046,
+    "avg_sum_z_abs": 0.098
+  },
+  {
+    "lat": 41.8503,
+    "lng": 12.62726,
+    "avg_sum_x": -0.022916667,
+    "avg_sum_x_abs": 0.075,
+    "avg_sum_y_abs": 0.077083333,
+    "avg_sum_z": -0.020833333,
+    "avg_sum_z_abs": 0.075
+  },
+  {
+    "lat": 41.8504,
+    "lng": 12.62723,
+    "avg_sum_x": 5.6644e-19,
+    "avg_sum_x_abs": 0.075510204,
+    "avg_sum_y_abs": 0.07755102,
+    "avg_sum_z": -0.002040816,
+    "avg_sum_z_abs": 0.075510204
+  },
+  {
+    "lat": 41.85052,
+    "lng": 12.6272,
+    "avg_sum_x": 0.014285714,
+    "avg_sum_x_abs": 0.057142857,
+    "avg_sum_y_abs": 0.055102041,
+    "avg_sum_z": 0.016326531,
+    "avg_sum_z_abs": 0.057142857
+  },
+  {
+    "lat": 41.85062,
+    "lng": 12.62716,
+    "avg_sum_x": 0.016326531,
+    "avg_sum_x_abs": 0.081632653,
+    "avg_sum_y_abs": 0.081632653,
+    "avg_sum_z": 0.014285714,
+    "avg_sum_z_abs": 0.083673469
+  },
+  {
+    "lat": 41.85075,
+    "lng": 12.62711,
+    "avg_sum_x": -0.028571429,
+    "avg_sum_x_abs": 0.087755102,
+    "avg_sum_y_abs": 0.085714286,
+    "avg_sum_z": -0.028571429,
+    "avg_sum_z_abs": 0.085714286
+  },
+  {
+    "lat": 41.85085,
+    "lng": 12.62708,
+    "avg_sum_x": -0.030612245,
+    "avg_sum_x_abs": 0.075510204,
+    "avg_sum_y_abs": 0.071428571,
+    "avg_sum_z": -0.032653061,
+    "avg_sum_z_abs": 0.073469388
+  },
+  {
+    "lat": 41.85097,
+    "lng": 12.62704,
+    "avg_sum_x": -0.016326531,
+    "avg_sum_x_abs": 0.106122449,
+    "avg_sum_y_abs": 0.110204082,
+    "avg_sum_z": -0.020408163,
+    "avg_sum_z_abs": 0.106122449
+  },
+  {
+    "lat": 41.85109,
+    "lng": 12.627,
+    "avg_sum_x": -0.006,
+    "avg_sum_x_abs": 0.08,
+    "avg_sum_y_abs": 0.082,
+    "avg_sum_z": -0.006,
+    "avg_sum_z_abs": 0.082
+  },
+  {
+    "lat": 41.8512,
+    "lng": 12.62695,
+    "avg_sum_x": -0.025,
+    "avg_sum_x_abs": 0.06875,
+    "avg_sum_y_abs": 0.066666667,
+    "avg_sum_z": -0.025,
+    "avg_sum_z_abs": 0.066666667
+  },
+  {
+    "lat": 41.85131,
+    "lng": 12.62691,
+    "avg_sum_x": -0.036734694,
+    "avg_sum_x_abs": 0.059183673,
+    "avg_sum_y_abs": 0.06122449,
+    "avg_sum_z": -0.036734694,
+    "avg_sum_z_abs": 0.06122449
+  },
+  {
+    "lat": 41.85141,
+    "lng": 12.62687,
+    "avg_sum_x": -0.026530612,
+    "avg_sum_x_abs": 0.059183673,
+    "avg_sum_y_abs": 0.059183673,
+    "avg_sum_z": -0.026530612,
+    "avg_sum_z_abs": 0.059183673
+  },
+  {
+    "lat": 41.85151,
+    "lng": 12.62683,
+    "avg_sum_x": -0.026,
+    "avg_sum_x_abs": 0.078,
+    "avg_sum_y_abs": 0.078,
+    "avg_sum_z": -0.028,
+    "avg_sum_z_abs": 0.076
+  },
+  {
+    "lat": 41.85162,
+    "lng": 12.62679,
+    "avg_sum_x": -0.054166667,
+    "avg_sum_x_abs": 0.064583333,
+    "avg_sum_y_abs": 0.0625,
+    "avg_sum_z": -0.054166667,
+    "avg_sum_z_abs": 0.0625
+  },
+  {
+    "lat": 41.85176,
+    "lng": 12.62675,
+    "avg_sum_x": -0.071717172,
+    "avg_sum_x_abs": 0.075757576,
+    "avg_sum_y_abs": 0.075757576,
+    "avg_sum_z": -0.072727273,
+    "avg_sum_z_abs": 0.076767677
+  },
+  {
+    "lat": 41.85188,
+    "lng": 12.62673,
+    "avg_sum_x": 0.001342282,
+    "avg_sum_x_abs": 0.044966443,
+    "avg_sum_y_abs": 0.045637584,
+    "avg_sum_z": 0.002684564,
+    "avg_sum_z_abs": 0.045637584
+  },
+  {
+    "lat": 41.85197,
+    "lng": 12.62672,
+    "avg_sum_x": -0.026174497,
+    "avg_sum_x_abs": 0.066442953,
+    "avg_sum_y_abs": 0.066442953,
+    "avg_sum_z": -0.024161074,
+    "avg_sum_z_abs": 0.067114094
+  },
+  {
+    "lat": 41.85208,
+    "lng": 12.62676,
+    "avg_sum_x": -0.012121212,
+    "avg_sum_x_abs": 0.084848485,
+    "avg_sum_y_abs": 0.084848485,
+    "avg_sum_z": -0.01010101,
+    "avg_sum_z_abs": 0.084848485
+  },
+  {
+    "lat": 41.85217,
+    "lng": 12.62676,
+    "avg_sum_x": -0.032653061,
+    "avg_sum_x_abs": 0.046938776,
+    "avg_sum_y_abs": 0.048979592,
+    "avg_sum_z": -0.030612245,
+    "avg_sum_z_abs": 0.046938776
+  },
+  {
+    "lat": 41.85233,
+    "lng": 12.62683,
+    "avg_sum_x": 0.023469388,
+    "avg_sum_x_abs": 0.073469388,
+    "avg_sum_y_abs": 0.074489796,
+    "avg_sum_z": 0.026530612,
+    "avg_sum_z_abs": 0.075510204
+  },
+  {
+    "lat": 41.85244,
+    "lng": 12.62683,
+    "avg_sum_x": 0.006,
+    "avg_sum_x_abs": 0.064,
+    "avg_sum_y_abs": 0.062,
+    "avg_sum_z": 0.004,
+    "avg_sum_z_abs": 0.064
+  },
+  {
+    "lat": 41.85256,
+    "lng": 12.62682,
+    "avg_sum_x": 0.033333333,
+    "avg_sum_x_abs": 0.114583333,
+    "avg_sum_y_abs": 0.116666667,
+    "avg_sum_z": 0.035416667,
+    "avg_sum_z_abs": 0.114583333
+  },
+  {
+    "lat": 41.85267,
+    "lng": 12.62677,
+    "avg_sum_x": -0.012,
+    "avg_sum_x_abs": 0.076,
+    "avg_sum_y_abs": 0.076,
+    "avg_sum_z": -0.008,
+    "avg_sum_z_abs": 0.076
+  },
+  {
+    "lat": 41.85278,
+    "lng": 12.62676,
+    "avg_sum_x": -0.002083333,
+    "avg_sum_x_abs": 0.097916667,
+    "avg_sum_y_abs": 0.097916667,
+    "avg_sum_z": -0.004166667,
+    "avg_sum_z_abs": 0.1
+  },
+  {
+    "lat": 41.85291,
+    "lng": 12.62673,
+    "avg_sum_x": -0.04,
+    "avg_sum_x_abs": 0.12,
+    "avg_sum_y_abs": 0.116,
+    "avg_sum_z": -0.042,
+    "avg_sum_z_abs": 0.118
+  },
+  {
+    "lat": 41.85304,
+    "lng": 12.62668,
+    "avg_sum_x": -0.027083333,
+    "avg_sum_x_abs": 0.085416667,
+    "avg_sum_y_abs": 0.08125,
+    "avg_sum_z": -0.029166667,
+    "avg_sum_z_abs": 0.083333333
+  },
+  {
+    "lat": 41.85315,
+    "lng": 12.62665,
+    "avg_sum_x": -0.018,
+    "avg_sum_x_abs": 0.088,
+    "avg_sum_y_abs": 0.086,
+    "avg_sum_z": -0.02, 
+    "avg_sum_z_abs": 0.088
+  },
+  {
+    "lat": 41.85327,
+    "lng": 12.62661,
+    "avg_sum_x": -0.0625,
+    "avg_sum_x_abs": 0.10625,
+    "avg_sum_y_abs": 0.104166667,
+    "avg_sum_z": -0.0625,
+    "avg_sum_z_abs": 0.104166667
+  },
+  {
+    "lat": 41.85339,
+    "lng": 12.62659,
+    "avg_sum_x": -0.056,
+    "avg_sum_x_abs": 0.102,
+    "avg_sum_y_abs": 0.1,
+    "avg_sum_z": -0.056,
+    "avg_sum_z_abs": 0.1
+  },
+  {
+    "lat": 41.85351,
+    "lng": 12.62656,
+    "avg_sum_x": -0.041666667,
+    "avg_sum_x_abs": 0.10625,
+    "avg_sum_y_abs": 0.104166667,
+    "avg_sum_z": -0.041666667,
+    "avg_sum_z_abs": 0.104166667
+  },
+  {
+    "lat": 41.85363,
+    "lng": 12.62652,
+    "avg_sum_x": -0.032653061,
+    "avg_sum_x_abs": 0.1,
+    "avg_sum_y_abs": 0.102040816,
+    "avg_sum_z": -0.032653061,
+    "avg_sum_z_abs": 0.102040816
+  }
+]

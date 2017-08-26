@@ -29,12 +29,28 @@ module.exports = function(app) {
         controller.create_a_task(req,res);
     });
 
+    app.get('/usersessions', function(req,res){
+        controller.userSessions(req,res);
+    });
+
     app.get('/maps', function(req, res) {
         res.sendFile(path.join(__dirname + '/view/maps.html'));
     });
 
+    app.get('/utenti', function(req, res) {
+        res.sendFile(path.join(__dirname + '/view/utenti.html'));
+    });
+
+    app.get('/sessioni', function(req, res) {
+        res.sendFile(path.join(__dirname + '/view/sessioni.html'));
+    });
+
     app.get('/js/jquery',function (req, res) {
         res.sendFile(path.join(__dirname + '/view/js/jquery-3.2.1.min.js'));
+    });
+
+    app.get('/data/json2*',function (req, res) {
+        res.sendFile(path.join(__dirname + '/view/data/maps_20170723.json'));
     });
 
     app.get('/data/json*',function (req, res) {
