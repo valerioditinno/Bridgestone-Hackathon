@@ -138,6 +138,15 @@ exports.add_data_from_phone = function(req, res){
   });
 };
 
+exports.sessionDetail = function(req, res) {
+  console.log(req.query.Username);
+  TaskAvg.find({"UserID": req.query.Username, "Session": req.query.Session}, function(err, taskavg) {
+    if (err)
+      res.send(err);
+    res.json(taskavg);
+  });
+};
+
 function extractTaskAvg(task){
     var data = task.Data;
     var tasksList = data.match(regex_avg_gps); // id = 'Ahg6qcgoay4'
@@ -148,7 +157,6 @@ function extractTaskAvg(task){
       var temp_i = tasksList[i].substr(1, tasksList[i].length-2);
       var res = temp_i.split(separatorData);
       if(res.length = 3){
-        
         var coords_temp = res[1].substr(1, res[1].length-2);
         var coords = coords_temp.split(", ");
         var lnglat = res[2].split(", ");

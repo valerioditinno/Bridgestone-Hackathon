@@ -1,6 +1,8 @@
 'use strict';
 var controller = require ("../controllers/serverController");
 var path = require('path');
+var view = require(__dirname + '/view/view.js');
+var express = require('express');
 
 module.exports = function(app) {
 /*
@@ -9,6 +11,10 @@ module.exports = function(app) {
         next();
     });
 */
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.set('view engine', 'html');
+    app.use( '/site/', view);
+
     app.get('/', function (req, res) {
         res.send(test(req));
     });
@@ -28,6 +34,10 @@ module.exports = function(app) {
     app.post('/addinfo', function(req,res){
         controller.create_a_task(req,res);
     });
+    
+    app.get('/sessionDetail', function(req,res){
+        controller.sessionDetail(req,res);
+    });
 
     app.get('/usersessions', function(req,res){
         controller.userSessions(req,res);
@@ -35,6 +45,10 @@ module.exports = function(app) {
 
     app.get('/maps', function(req, res) {
         res.sendFile(path.join(__dirname + '/view/maps.html'));
+    });
+
+    app.get('/mappasessiones', function(req, res) {
+        res.redirect('/routes/view/mappasessione.html' + '?Session=23&Username=daniele');
     });
 
     app.get('/utenti', function(req, res) {

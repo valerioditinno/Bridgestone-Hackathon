@@ -62,19 +62,19 @@ var SessionSchema = new Schema({
 
 var TaskAvgSchema = new Schema({
   x: {
-    type: String
+    type: Number
   },
   y: {
-    type: String
+    type: Number
   },
   z: {
-    type: String
+    type: Number
   },
   lat: {
-    type: String
+    type: Number
   },
   lng: {
-    type: String
+    type: Number
   },
   UserID: {
     type: String

@@ -2,7 +2,7 @@
   "name": "serverapi",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,11 +13,13 @@
   },
   "dependencies": {
     "body-parser": "^1.17.2",
+    "consolidate": "^0.14.5",
     "express": "^4.15.3",
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
     "log4js": "^2.0.0",
     "moment": "^2.18.1",
-    "mongoose": "4.11.3"
+    "mongoose": "4.11.3",
+    "mustache": "^2.3.0"
   }
 }
