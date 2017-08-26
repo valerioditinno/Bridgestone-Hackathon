@@ -53,6 +53,14 @@
       }
       var username = findGetParameter("Username");
       var session = findGetParameter("Session");
+      var coord = findGetParameter("Coord");
+      var limit = findGetParameter("Limit");
+      if(typeof (limit) === undefined || limit === null){
+        limit = 0.3;
+      }
+      if(typeof (coord) === undefined || coord === null){
+        coord = "x";
+      }
       var map;
       
       function initMap() {
@@ -63,7 +71,7 @@
 
         // Get the data from the server.
         var flightPlanCoordinates = [] ;
-        var absmax = 0.3;
+        var absmax = limit;
 
         if(typeof (username) != undefined && typeof(session)!= undefined && username != null && session != null){
           $getResult = $.get( "../sessionDetail?Username="+username+"&Session="+session, 
@@ -80,7 +88,7 @@
                   var flightPath = new google.maps.Polyline({
                     path: flightPlanCoordinatestemp,
                     geodesic: true,
-                    strokeColor: getRandomColor( Math.floor( (Math.abs(flightPlanCoordinates[i].x)/absmax)* 31) ),
+                    strokeColor: getRandomColor( Math.floor( (Math.abs(flightPlanCoordinates[i][coord])/absmax)* 31) ),
                     strokeOpacity: 1.0,
                     strokeWeight: 6
                   });
