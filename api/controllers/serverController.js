@@ -176,29 +176,31 @@ function extractTaskAvg(task){
     var data = task.Data;
     var tasksList = data.match(regex_avg_gps); // id = 'Ahg6qcgoay4'
     console.log(tasksList);
-    for(var i = 0; i<tasksList.length; i++){
-      console.log('test regex_avg_gps data');
-      console.log(tasksList[i]);
-      var temp_i = tasksList[i].substr(1, tasksList[i].length-2);
-      var res = temp_i.split(separatorData);
-      if(res.length = 3){
-        var coords_temp = res[1].substr(1, res[1].length-2);
-        var coords = coords_temp.split(", ");
-        var lnglat = res[2].split(", ");
-        var taskAvg = new TaskAvg({
-          x: coords[0],
-          y: coords[1],
-          z: coords[2],
-          lat: lnglat[0],
-          lng: lnglat[1],
-          Timestamp : res[0],
-          UserID : task.UserID,
-          Session : task.Session
-        });
-        taskAvg.save(function(err, task) {
-          if (err)
-            console.log("error " + err);
-        });
+    if(tasksList != null){
+      for(var i = 0; i<tasksList.length; i++){
+        console.log('test regex_avg_gps data');
+        console.log(tasksList[i]);
+        var temp_i = tasksList[i].substr(1, tasksList[i].length-2);
+        var res = temp_i.split(separatorData);
+        if(res.length = 3){
+          var coords_temp = res[1].substr(1, res[1].length-2);
+          var coords = coords_temp.split(", ");
+          var lnglat = res[2].split(", ");
+          var taskAvg = new TaskAvg({
+            x: coords[0],
+            y: coords[1],
+            z: coords[2],
+            lat: lnglat[0],
+            lng: lnglat[1],
+            Timestamp : res[0],
+            UserID : task.UserID,
+            Session : task.Session
+          });
+          taskAvg.save(function(err, task) {
+            if (err)
+              console.log("error " + err);
+          });
+        }
       }
     }
 }
