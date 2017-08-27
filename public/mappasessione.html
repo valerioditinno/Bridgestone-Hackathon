@@ -88,7 +88,7 @@
                   var flightPath = new google.maps.Polyline({
                     path: flightPlanCoordinatestemp,
                     geodesic: true,
-                    strokeColor: getRandomColor( Math.floor( (Math.abs(flightPlanCoordinates[i][coord])/absmax)* 31) ),
+                    strokeColor: getRandomColor( Math.abs(flightPlanCoordinates[i][coord]) ),
                     strokeOpacity: 1.0,
                     strokeWeight: 6
                   });
@@ -179,13 +179,17 @@
         return color;
       }
       
-      function getRandomColor(value = -1) {
-        var colors = Array("0000FF", "98f5ff", "ffd700", "ee2c2c");
+      function getRandomColor(value = -1, soglia = 0.3) {
+        var colors = Array("00b3fd", "fd9700", "fd0000");
         
-        if(value >= 0 && value < colors.length){
-          color = "#"+colors[3-value];
+        if(value <= 0.1 ){
+          color = "#"+colors[0];
         }else{
-          color = "#"+colors[Math.floor(Math.random()*colors.length)];
+          if(value <= 0.3){
+            color = "#"+colors[1];
+          }else{
+            color = "#"+colors[2];
+          }
         }
         return color;
       }
