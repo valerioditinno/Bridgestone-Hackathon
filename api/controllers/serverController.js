@@ -61,6 +61,28 @@ exports.login = function(req, res) {
   });
 };
 
+exports.loginSite = function(req, res) {
+  var message = "";
+  var time = moment();
+  var time_format = time.format('X');  
+  User.findOne({ "Username" : req.body.Username}, function(err, user) {
+    console.log('login: ' + req.body.Username);
+    if (err)
+      message = err;
+    else{
+      if(typeof req.body.Password !== 'undefined' && user != null && req.body.Password == user.Password){
+        message = "OK " + time_format;
+        var session = new Session({"Username": user.Username, "Timestamp": time_format});
+        session.save(function(err, session_res) {
+        });
+      }else{
+        message = "KO";
+      }
+    }
+    res.send(message);
+  });
+};
+
 exports.userSessions = function(req, res) {
   console.log(req.query.Username);
   Session.find({"Username": req.query.Username}, function(err, sessions) {

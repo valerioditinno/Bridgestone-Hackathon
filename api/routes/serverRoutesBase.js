@@ -48,6 +48,10 @@ router.post('/login',function (req, res) {
     controller.login(req, res);
 });
 
+router.post('/loginSite',function (req, res) {
+    controller.loginSite(req, res);
+});
+
 module.exports = router;
 
 function test(req){
