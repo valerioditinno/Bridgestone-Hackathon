@@ -153,7 +153,7 @@
               var flightPath = new google.maps.Polyline({
                 path: flightPlanCoordinatestemp,
                 geodesic: true,
-                strokeColor: getRandomColor( Math.floor( (Math.abs(colorPlan[i])/absmax)* 31) ),
+                strokeColor: getRandomColor( Math.floor( (Math.abs(colorPlan[i])/absmax)* 4) ),
                 strokeOpacity: 1.0,
                 strokeWeight: 6
               });
@@ -167,12 +167,23 @@
 
       }
 
-      function getRandomColor(value = -1) {
+      function getRandomColor_old(value = -1) {
 
         var colors = Array("FF0000", "FF1000", "FF2000", "FF3000", "FF4000", "FF5000", "FF6000", "FF7000", "FF8000", "FF9000", "FFA000", "FFB000", "FFC000", "FFD000", "FFE000", "FFF000", "FFFF00", "F0FF00", "E0FF00", "D0FF00", "C0FF00", "B0FF00", "A0FF00", "90FF00", "80FF00", "70FF00", "60FF00", "50FF00", "40FF00", "30FF00", "20FF00", "10FF00");
         
         if(value >= 0 && value < colors.length){
           color = "#"+colors[31-value];
+        }else{
+          color = "#"+colors[Math.floor(Math.random()*colors.length)];
+        }
+        return color;
+      }
+      
+      function getRandomColor(value = -1) {
+        var colors = Array("0000FF", "98f5ff", "ffd700", "ee2c2c");
+        
+        if(value >= 0 && value < colors.length){
+          color = "#"+colors[4-value];
         }else{
           color = "#"+colors[Math.floor(Math.random()*colors.length)];
         }
