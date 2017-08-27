@@ -40,7 +40,8 @@ app.set('view engine', 'html');
 // dico all'app di servire tutto il contenuto della cartella 'public' come statico
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static('public/assets'));
-app.use('/site', express.static('public/assets/note'));
+app.use('/site', express.static('public/assets/singular'));
+app.use('/oldsite', express.static('public'));
 
 
 //app.use("/sito", routersito);

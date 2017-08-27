@@ -50,6 +50,10 @@ var SessionSchema = new Schema({
   Username: {
     type: String
   },
+  Site:{
+    type: Boolean,
+    default: false
+  },
   Timestamp: {
     type: String
   },

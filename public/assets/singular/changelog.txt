@@ -1,0 +1,14 @@
+* 1.1
+
+- Update AngularJS to 1.4.2
+- Update Bootstrap to 3.3.5
+- Update jQuery to 2.1.4
+- Update Font Awesome to 4.4.0
+- Fix fullscreen on ie (disabled)
+- Fix view animation (removed animate-disabled from BS carousel)
+- Added check to vendor copy tasks in Gulp
+- Removed nullController placeholder from routes
+
+* 1.0
+
+- Initial Release

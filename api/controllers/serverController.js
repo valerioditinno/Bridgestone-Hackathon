@@ -62,24 +62,27 @@ exports.login = function(req, res) {
 };
 
 exports.loginSite = function(req, res) {
-  var message = "";
+  var messagestr = "";
+  var resultnum = 0;
+  var sessionval = "";
   var time = moment();
-  var time_format = time.format('X');  
+  var time_format = time.format('x');  
   User.findOne({ "Username" : req.body.Username}, function(err, user) {
-    console.log('login: ' + req.body.Username);
     if (err)
-      message = err;
+      messagestr = err;
     else{
       if(typeof req.body.Password !== 'undefined' && user != null && req.body.Password == user.Password){
-        message = "OK " + time_format;
-        var session = new Session({"Username": user.Username, "Timestamp": time_format});
-        session.save(function(err, session_res) {
+        messagestr = "OK"
+        sessionval = time_format;
+        var session = new Session({"Username": user.Username, "Timestamp": time_format, "Site": true});
+          session.save(function(err, session_res) {
         });
       }else{
-        message = "KO";
+        resultnum = -1;
+        messagestr = "Username or password is incorrect";
       }
     }
-    res.send(message);
+    res.json({result: resultnum, message: messagestr, session: sessionval, success: (resultnum == 0) ? true : false});
   });
 };
 
