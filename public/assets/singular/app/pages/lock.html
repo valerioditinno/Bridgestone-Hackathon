@@ -1,21 +1,25 @@
 <div class="abs-center wd-xl">
    <img data-ng-src="{{user.picture}}" alt="User Picture" class="img-circle center-block thumb80" />
    <br/>
-   <div class="text-center">Type password to unlock</div>
-   <form role="form" class="p">
+   <div class="text-center">{{username}} type password to unlock</div>
+   <form role="form" ng-submit="login()" class="p">
       <div class="form-group has-feedback"></div>
       <div class="input-group">
-         <input id="exampleInputPassword1" type="password" placeholder="Password" class="form-control" />
+         <input id="exampleInputPassword1" type="password" placeholder="Password" class="form-control" ng-model="password"/>
          <span class="input-group-btn">
-            <button type="button" data-ng-click="$state.go('app.dashboard')" class="btn btn-info">
+            <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-info">
                <em class="fa fa-lock fa-fw"></em>
             </button>
          </span>
       </div>
    </form>
    <div class="text-center mt-sm">
+       <p ng-hide="message==''" class="text-danger">{{message}}</p>
       <a ui-sref="page.recover" class="text-muted">
          <small>Forgot your password?</small>
+      </a> | 
+      <a ui-sref="page.login" class="text-muted">
+         <small>LOGOUT</small>
       </a>
    </div>
    <div data-ng-include="'app/pages/page-footer.html'" class="p-lg text-center"></div>

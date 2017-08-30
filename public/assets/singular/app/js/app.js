@@ -1,6 +1,6 @@
 /*!
  * 
- * Singular - Bootstrap Admin Theme + AngularJS
+ * YAKApageTitle - Bootstrap Admin Theme + AngularJS
  * 
  * Author: @geedmo
  * Website: http://geedmo.com
@@ -23,7 +23,7 @@ var App = angular.module('singular', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCo
     // ----------------------------------- 
     $rootScope.app = {
       name: 'YAKA',
-      description: 'YAKA | web application',
+      description: 'web application',
       year: ((new Date()).getFullYear()),
       viewAnimation: 'ng-fadeInLeft2',
       layout: {
@@ -42,7 +42,7 @@ var App = angular.module('singular', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCo
         topbar: 'bg-primary'
       }
     };
-    var globalcookie = JSON.parse($cookies.get('globals'));
+    var globalcookie =  $cookies.get('globals') === undefined ? '' : JSON.parse($cookies.get('globals'));
     // User information
     $rootScope.user = {
       name: $cookies.get('globals') === undefined ? '' : globalcookie.currentUser.username,
@@ -56,8 +56,8 @@ var App = angular.module('singular', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCo
 // ----------------------------------- 
 
 App.controller('AppController',
-  ['$rootScope', '$scope', '$state', '$window', '$localStorage', '$timeout', '$location', 'toggleStateService', 'colors', 'browser', 'cfpLoadingBar', '$http', 'flotOptions', 'support',
-    function ($rootScope, $scope, $state, $window, $localStorage, $timeout, $location, toggle, colors, browser, cfpLoadingBar, $http, flotOptions, support) {
+  ['$rootScope', '$scope', '$state', '$window', '$localStorage', '$timeout', '$location', 'toggleStateService', 'colors', 'browser', 'cfpLoadingBar', '$http', 'flotOptions', 'support', 'AuthenticationService',
+    function ($rootScope, $scope, $state, $window, $localStorage, $timeout, $location, toggle, colors, browser, cfpLoadingBar, $http, flotOptions, support, AuthenticationService) {
       "use strict";
 
       if (support.touch)
@@ -65,6 +65,10 @@ App.controller('AppController',
 
       // Loading bar transition
       // ----------------------------------- 
+
+      if(!AuthenticationService.IsLogged()){
+        $location.path('/page/login');
+      }
 
       var latency;
       $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -100,7 +104,7 @@ App.controller('AppController',
 
       // Create your own per page title here
       $rootScope.pageTitle = function () {
-        return $rootScope.app.name + ' - ' + $rootScope.app.description;
+        return 'YAKA' + ' | ' + 'Web Application';
       };
 
       // Restore layout settings
@@ -174,7 +178,7 @@ App.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
       .state('app.dashboard', {
         url: '/dashboard',
         templateUrl: basepath('dashboard.html'),
-        resolve: requireDeps('flot-chart', 'flot-chart-plugins')
+        resolve: requireDeps('ngTable', 'ngTableExport')
       })
       .state('app.buttons', {
         url: '/buttons',
@@ -360,7 +364,8 @@ App.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
       })
       .state('page.lock', {
         url: '/lock',
-        templateUrl: 'app/pages/lock.html'
+        templateUrl: 'app/pages/lock.html',
+        controller: 'LockController'
       })
       // 
       // CUSTOM RESOLVE FUNCTION
@@ -2710,52 +2715,29 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
  * Controller for ngTables
  =========================================================*/
 
-App.controller('AngularTableController', AngularTableController);
+App.controller('AngularTableController', ['$scope', '$filter', 'ngTableParams', '$cookies', '$http', AngularTableController]);
 
-function AngularTableController($scope, $filter, ngTableParams) {
+function AngularTableController($scope, $filter, ngTableParams, $cookies, $http) {
   'use strict';
   var vm = this;
 
   // SORTING
   // ----------------------------------- 
 
-  var data = [
-    { name: "Moroni", age: 50, money: -10 },
-    { name: "Tiancum", age: 43, money: 120 },
-    { name: "Jacob", age: 27, money: 5.5 },
-    { name: "Nephi", age: 29, money: -54 },
-    { name: "Enos", age: 34, money: 110 },
-    { name: "Tiancum", age: 43, money: 1000 },
-    { name: "Jacob", age: 27, money: -201 },
-    { name: "Nephi", age: 29, money: 100 },
-    { name: "Enos", age: 34, money: -52.5 },
-    { name: "Tiancum", age: 43, money: 52.1 },
-    { name: "Jacob", age: 27, money: 110 },
-    { name: "Nephi", age: 29, money: -55 },
-    { name: "Enos", age: 34, money: 551 },
-    { name: "Tiancum", age: 43, money: -1410 },
-    { name: "Jacob", age: 27, money: 410 },
-    { name: "Nephi", age: 29, money: 100 },
-    { name: "Enos", age: 34, money: -100 }
-  ];
+  var data =  [];
 
-  vm.tableParams = new ngTableParams({
-    page: 1,            // show first page
-    count: 10,          // count per page
-    sorting: {
-      name: 'asc'     // initial sorting
-    }
-  }, {
-      total: data.length, // length of data
-      getData: function ($defer, params) {
-        // use build-in angular filter
-        var orderedData = params.sorting() ?
-          $filter('orderBy')(data, params.orderBy()) :
-          data;
-
-        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+  var username = JSON.parse($cookies.get('globals')).currentUser.username;
+  $http.get('../usersessions', {
+      params: {
+        Username: username
       }
-    });
+  }).success(function (response) {
+    data = [];
+    for(var i = 0; i<response.length; i++){
+      if(typeof response[i].Site ==='undefined' || !response[i].Site)
+        data.push({sessionid: response[i].Timestamp, date: response[i].Created_date, link:'../oldsite/mappasessione.html?Username='+username+'&Session='+username});
+    }
+  });
 
   // FILTERS
   // ----------------------------------- 
@@ -2764,9 +2746,8 @@ function AngularTableController($scope, $filter, ngTableParams) {
     page: 1,            // show first page
     count: 10,          // count per page
     filter: {
-      name: '',
-      age: ''
-      // name: 'M'       // initial filter
+      sessionid: '',
+      date: ''
     }
   }, {
       total: data.length, // length of data
@@ -2776,10 +2757,10 @@ function AngularTableController($scope, $filter, ngTableParams) {
           $filter('filter')(data, params.filter()) :
           data;
 
-        vm.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+        vm.sessions = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
 
         params.total(orderedData.length); // set total for recalc pagination
-        $defer.resolve(vm.users);
+        $defer.resolve(vm.sessions);
       }
     });
 
@@ -3605,7 +3586,7 @@ App.factory('AuthenticationService', ['$http', '$cookies', '$rootScope', '$timeo
 
   function IsLogged() {
     var cookielogin = $cookies.get('globals');
-    return !(cookielogin === undefined); 
+    return !(cookielogin === undefined) && cookielogin != {}; 
   }
 
   function Login(username, password, callback) {
@@ -3725,6 +3706,35 @@ var Base64 = {
   }
 };
 
+App.controller('LockController', ['AuthenticationService', '$scope', '$cookies', '$location',
+  function(AuthenticationService, $scope, $cookies, $location){
+    $scope.message = '';
+    $scope.login = login;
+
+    if(!AuthenticationService.IsLogged()){
+      $location.path('/page/login');
+    }else{
+      $scope.username = JSON.parse($cookies.get('globals')).currentUser.username;
+      AuthenticationService.ClearCredentials();
+    }
+    
+    $scope.$watch('password', function() {
+      $scope.message = '';
+    });
+
+    function login() {
+      $scope.dataLoading = true;
+      AuthenticationService.Login($scope.username, $scope.password, function (response) {
+        if (response.success) {
+          AuthenticationService.SetCredentials($scope.username, $scope.password);
+          $location.path('/');
+        } else {
+          $scope.dataLoading = false;
+          $scope.message = response.message;
+        }
+      });
+    };
+}]);
 
 App.controller('LoginController', ['$scope', '$location', 'AuthenticationService',
   function ($scope, $location, AuthenticationService) {
@@ -3743,7 +3753,6 @@ App.controller('LoginController', ['$scope', '$location', 'AuthenticationService
           AuthenticationService.SetCredentials($scope.username, $scope.password);
           $location.path('/');
         } else {
-          console.log(response.message);
           $scope.dataLoading = false;
         }
       });
