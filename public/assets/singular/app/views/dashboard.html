@@ -12,8 +12,10 @@
                 <tbody>
                     <tr data-ng-repeat="session in $data">
                     <td data-title="'SessionID'" filter="{ 'sessionid': 'text' }">{{session.sessionid}}</td>
-                    <td data-title="'Date'" filter="{ 'date': 'text' }">{{session.date}}</td>
-                    <td data-title="''"><a href="{{session.link}}">maps</a></td>
+                    <td data-title="'Date'" filter="{ 'date': 'text' }">{{session.sessionid*1000 | date : 'dd/MM/yyyy HH:mm'}}</td>
+                    <td data-title="''"><a href="{{session.link_x}}" target="_blank">maps_x</a></td>
+                    <td data-title="''"><a href="{{session.link_y}}" target="_blank">maps_y</a></td>
+                    <td data-title="''"><a href="{{session.link_z}}" target="_blank">maps_z</a></td>
                     </tr>
                 </tbody>
             </table>

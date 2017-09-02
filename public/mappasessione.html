@@ -83,10 +83,9 @@
             }else{
               map = new google.maps.Map(document.getElementById('map'), {
                 center: {"lat": 41.84655, "lng": 12.62636},
-                zoom: 15
+                zoom: 11
               });
             }
-            console.log(flightPlanCoordinates);
             for(i = 1; i < flightPlanCoordinates.length; i++){
               flightPlanCoordinatestemp = [{"lat":flightPlanCoordinates[i-1].lat,"lng":flightPlanCoordinates[i-1].lng},
               {"lat":flightPlanCoordinates[i].lat,"lng":flightPlanCoordinates[i].lng}];

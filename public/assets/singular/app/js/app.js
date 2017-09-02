@@ -2735,7 +2735,11 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
     data = [];
     for(var i = 0; i<response.length; i++){
       if(typeof response[i].Site ==='undefined' || !response[i].Site)
-        data.push({sessionid: response[i].Timestamp, date: response[i].Created_date, link:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp, origin:response[i].origin});
+        data.push({sessionid: response[i].Timestamp, date: response[i].Created_date, 
+        link_x:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"Coord=x",
+        link_y:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"Coord=y",
+        link_z:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"Coord=z",
+      origin:response[i].origin});
     }
   });
 

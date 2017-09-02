@@ -92,10 +92,29 @@ exports.userSessions = function(req, res) {
   Session.find({"Username": req.query.Username}, function(err, sessions) {
     if (err)
       res.send(err);
-    for(var i = 0; i<sessions.length; i++){
-      get_geolcode('40.714232', '12.52564', function(data){console.log(data)});
-    }
-    res.json(sessions);
+      for(var i = 0; i< sessions.length; i++){
+        if(!sessions[i].Site){
+          var start_point = null;
+          var end_point = null;
+          var first_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : -1 } }, function(err, post) {
+            if(post !== null){
+              get_geolcode(first_step.lat, first_step.lng, function(data){
+                console.log(data);
+                start_point = data;
+              });
+            }
+          });
+          var last_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : 1 } }, function(err, post) {
+            if(post !== null){
+              get_geolcode(last_step.lat, last_step.lng, function(data){
+                console.log(data);
+                end_point = data;
+              });
+            }
+          });
+        }
+      }
+      res.json(sessions);
   });
 };
 
@@ -212,7 +231,7 @@ function extractTaskAvg(task){
 
 function get_geolcode(lat, lng, callback) {
     var options = {
-        uri : 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +'&key=AIzaSyDWG_AjxYCOnXkeMl-biHoneHbjktkDA2Y',
+        uri : 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +'&key=AIzaSyDh2ZoqiOa5x4N43XJoIWZOc__7MvHPa7I',
         method : 'GET'
     }; 
     var res = '';
