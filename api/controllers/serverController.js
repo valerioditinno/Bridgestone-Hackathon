@@ -98,17 +98,23 @@ exports.userSessions = function(req, res) {
           var end_point = null;
           var first_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : -1 } }, function(err, post) {
             if(post !== null){
-              get_geolcode(first_step.lat, first_step.lng, function(data){
-                console.log(data);
-                start_point = data;
+              get_geolcode(post.lat, post.lng, function(data){
+                var response = JSON.parse(data);
+                if(response.status == 'OK'){
+                  start_point = response.results[0].formatted_address;
+                  console.log(start_point);
+                }
               });
             }
           });
           var last_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : 1 } }, function(err, post) {
             if(post !== null){
-              get_geolcode(last_step.lat, last_step.lng, function(data){
-                console.log(data);
-                end_point = data;
+              get_geolcode(post.lat, post.lng, function(data){
+                var response = JSON.parse(data);
+                if(response.status == 'OK'){
+                  end_point = response.results[0].formatted_address;
+                  console.log(end_point);
+                }
               });
             }
           });
@@ -241,7 +247,10 @@ function get_geolcode(lat, lng, callback) {
             res = body;
         }
         else {
-            res = 'Not Found';
+            res = {
+              "results" : [],
+              "status" : "ZERO_RESULTS_WITH_ERROR"
+            };
         }
         callback(res);
     });
