@@ -21,6 +21,7 @@
     "moment": "^2.18.1",
     "mongoose": "4.11.3",
     "morgan": "^1.8.2",
-    "mustache": "^2.3.0"
+    "mustache": "^2.3.0",
+    "rotating-file-stream": "^1.2.2"
   }
 }

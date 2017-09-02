@@ -2735,7 +2735,7 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
     data = [];
     for(var i = 0; i<response.length; i++){
       if(typeof response[i].Site ==='undefined' || !response[i].Site)
-        data.push({sessionid: response[i].Timestamp, date: response[i].Created_date, link:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp});
+        data.push({sessionid: response[i].Timestamp, date: response[i].Created_date, link:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp, origin:response[i].origin});
     }
   });
 

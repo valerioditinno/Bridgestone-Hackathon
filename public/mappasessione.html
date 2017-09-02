@@ -64,10 +64,6 @@
       var map;
       
       function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {"lat": 41.84655, "lng": 12.62636},
-          zoom: 15
-        });
 
         // Get the data from the server.
         var flightPlanCoordinates = [] ;
@@ -79,6 +75,14 @@
               // manipulate response
               flightPlanCoordinates = response;
           }).done(function() {
+            if(flightPlanCoordinates.length>0){
+              
+            }else{
+              map = new google.maps.Map(document.getElementById('map'), {
+                center: {"lat": 41.84655, "lng": 12.62636},
+                zoom: 15
+              });
+            }
             console.log(flightPlanCoordinates);
             for(i = 1; i < flightPlanCoordinates.length; i++){
               flightPlanCoordinatestemp = [{"lat":flightPlanCoordinates[i-1].lat,"lng":flightPlanCoordinates[i-1].lng},
@@ -96,75 +100,6 @@
               }
           });
         }
-          /*
-        $getResult = $.get( "data/json2", // Wherever you're getting your var MapPoints JSON.
-        function(response, err) {
-          // manipulate response
-          flightPlanCoordinates = response;
-          
-        }).done(function() {
-          for(i = 1; i < flightPlanCoordinates.length; i++){
-           flightPlanCoordinatestemp = [{"lat":flightPlanCoordinates[i-1].lat,"lng":flightPlanCoordinates[i-1].lng},
-          {"lat":flightPlanCoordinates[i].lat,"lng":flightPlanCoordinates[i].lng}];
-           //flightPlanCoordinatestemp = flightPlanCoordinates.slice(i, i+2);
-              var flightPath = new google.maps.Polyline({
-                path: flightPlanCoordinatestemp,
-                geodesic: true,
-                strokeColor: getRandomColor( Math.floor( (Math.abs(flightPlanCoordinates[i].avg_sum_x)/absmax)* 31) ),
-                strokeOpacity: 1.0,
-                strokeWeight: 6
-              });
-              flightPath.setMap(map);
-          }
-
-        });*/
-      }
-
-
-        function _initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {"lat": 41.84655, "lng": 12.62636},
-          zoom: 15
-        });
-
-        // Get the data from the server.
-        var flightPlanCoordinates = [] ;
-        var absmax;
-          
-        $getResult = $.get( "data/json", // Wherever you're getting your var MapPoints JSON.
-        function(response, err) {
-          // manipulate response
-          flightPlanCoordinates = response.coords;
-          colorPlan = response.accelerationsx;
-          absmax = Math.max( colorPlan.max() );
-          min = Math.abs(Math.min( colorPlan.min() ));
-          if(min>absmax){
-            absmax = min;
-          }
-
-          console.log (absmax);
-          flightPlanCoordinatestemp = flightPlanCoordinates.slice(0, 2);
-          flightPlanCoordinatestemp2 = flightPlanCoordinates.slice(11);
-        }).done(function() {
-
-          for(i = 0; i < flightPlanCoordinates.length; i++){
-           flightPlanCoordinatestemp = flightPlanCoordinates.slice(i, i+2);
-           console.log(JSON.stringify(flightPlanCoordinatestemp));
-              var flightPath = new google.maps.Polyline({
-                path: flightPlanCoordinatestemp,
-                geodesic: true,
-                strokeColor: getRandomColor( Math.floor( (Math.abs(colorPlan[i])/absmax)* 4) ),
-                strokeOpacity: 1.0,
-                strokeWeight: 6
-              });
-              flightPath.setMap(map);
-          }
-
-        });
-  
-  
-
-
       }
 
       function getRandomColor_old(value = -1) {

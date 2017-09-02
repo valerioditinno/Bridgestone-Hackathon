@@ -8,6 +8,7 @@ var Task = mongoose.model('Tasks');
 var TaskAvg = mongoose.model('TasksAvg');
 var User = mongoose.model('Users');
 var Session = mongoose.model('Sessions');
+var request = require('request');
 
 var regex_avg_gps = /\[.{1,60}\]/gm;
 var separatorData = " - ";
@@ -91,6 +92,9 @@ exports.userSessions = function(req, res) {
   Session.find({"Username": req.query.Username}, function(err, sessions) {
     if (err)
       res.send(err);
+    for(var i = 0; i<sessions.length; i++){
+      get_geolcode('40.714232', '12.52564', function(data){console.log(data)});
+    }
     res.json(sessions);
   });
 };
@@ -203,4 +207,23 @@ function extractTaskAvg(task){
         }
       }
     }
+}
+
+
+function get_geolcode(lat, lng, callback) {
+    var options = {
+        uri : 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +'&key=AIzaSyDWG_AjxYCOnXkeMl-biHoneHbjktkDA2Y',
+        method : 'GET'
+    }; 
+    var res = '';
+    console.log(options.uri);
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res = body;
+        }
+        else {
+            res = 'Not Found';
+        }
+        callback(res);
+    });
 }

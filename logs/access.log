@@ -1,0 +1,4 @@
+::1 - - [02/Sep/2017:12:48:48 +0000] "GET /site/app/vendor/ng-table/ng-table.map HTTP/1.1" 404 176 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+::1 - - [02/Sep/2017:12:48:48 +0000] "GET /site/app/vendor/ng-table-export/ng-table-export.map HTTP/1.1" 404 190 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+::1 - - [02/Sep/2017:12:49:53 +0000] "GET /site/app/vendor/ng-table/ng-table.map HTTP/1.1" 404 176 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+::1 - - [02/Sep/2017:12:49:53 +0000] "GET /site/app/vendor/ng-table-export/ng-table-export.map HTTP/1.1" 404 190 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
