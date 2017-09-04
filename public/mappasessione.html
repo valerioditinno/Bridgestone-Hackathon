@@ -87,11 +87,11 @@
               });
             }
             if(coord === 'speed'){
-              var speed = 0;
+              var speed_val = 0;
               for(i = 1; i < flightPlanCoordinates.length; i++){
                 flightPlanCoordinatestemp = [{"lat":flightPlanCoordinates[i-1].lat,"lng":flightPlanCoordinates[i-1].lng},
                 {"lat":flightPlanCoordinates[i].lat,"lng":flightPlanCoordinates[i].lng}];
-                speed = speed(flightPlanCoordinatestemp,flightPlanCoordinates[i-1].Timestamp, flightPlanCoordinates[i].Timestamp);
+                speed_val = speed(flightPlanCoordinatestemp,flightPlanCoordinates[i-1].Timestamp, flightPlanCoordinates[i].Timestamp);
                 //flightPlanCoordinatestemp = flightPlanCoordinates.slice(i, i+2);
                 var flightPath = new google.maps.Polyline({
                   path: flightPlanCoordinatestemp,
@@ -109,7 +109,7 @@
                 });
                 var stuLabel = new Label();
                 stuLabel.bindTo('position', midPointMarker, 'position');
-                stuLabel.set('text', speed + ' Km/h');
+                stuLabel.set('text', speed_val + ' Km/h');
 
                 // lets add event listeners
                 google.maps.event.addListener(polyline, 'mouseover', function() {
