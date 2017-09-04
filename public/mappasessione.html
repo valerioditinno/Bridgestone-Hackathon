@@ -147,7 +147,7 @@
       }
 
       function speed(flightPlanCoordinates, t1, t2){
-        return distance(flightPlanCoordinates[0].lat, flightPlanCoordinates[0].lng, flightPlanCoordinates[1].lat, flightPlanCoordinates[1].lng, "K")/((t2 - t1));
+        return distance(flightPlanCoordinates[0].lat, flightPlanCoordinates[0].lng, flightPlanCoordinates[1].lat, flightPlanCoordinates[1].lng, "K")/((t2 - t1)/1000);
       }
     </script>
 	<script
