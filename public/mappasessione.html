@@ -134,11 +134,6 @@
           content: contentString
         });
 
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map,
-          title: 'Uluru (Ayers Rock)'
-        });
         midPointMarker.addListener('click', function() {
           infowindow.open(map, midPointMarker);
         });
