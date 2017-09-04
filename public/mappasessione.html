@@ -115,12 +115,13 @@
 
                 console.log('text', speed_val + ' Km/h');
                 // lets add event listeners
-                google.maps.event.addListener(polyline, 'mouseover', function() {
-                    stuLabel.setMap(map);
+                google.maps.event.addListener(flightPath, 'mouseover', function() {
+                    //stuLabel.setMap(map);
+                    console.log('text', speed_val + ' Km/h');
                 });
 
-                google.maps.event.addListener(polyline, 'mouseout', function() {
-                    stuLabel.setMap(null);
+                google.maps.event.addListener(flightPath, 'mouseout', function() {
+                    //stuLabel.setMap(null);
                 });
               }
             }else{
