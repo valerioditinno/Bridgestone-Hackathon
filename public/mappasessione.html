@@ -113,13 +113,13 @@
 
 
 
-        contentStrings = '<div id="content">'+
+        contentStrings.push('<div id="content">'+
                     '<div id="siteNotice">'+
                     '</div>'+
                     '<div id="bodyContent">'+
                     '<p>'+speed_val+' km/h</p>'+
                     '</div>'+
-                    '</div>';
+                    '</div>');
 
         infowindows.push( new google.maps.InfoWindow({
             content: contentStrings[contentStrings.length-1]
