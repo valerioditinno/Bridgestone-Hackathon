@@ -101,9 +101,8 @@
                   strokeWeight: 6
                 });
                 flightPath.setMap(map);
-                var inBetween = google.maps.geometry.spherical.interpolate(flightPlanCoordinatestemp[0], flightPlanCoordinatestemp[1], 0.5);  
                 var midPointMarker = new google.maps.Marker({  
-                    position: inBetween,  
+                    position: flightPlanCoordinatestemp[0],  
                     map: map,
                     visible: false  // NB the marker is 'invisible'
                 });
