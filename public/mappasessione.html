@@ -87,6 +87,7 @@
               });
             }
             if(coord === 'speed'){
+              var markers = []; 
               var speed_val = 0;
               for(i = 1; i < flightPlanCoordinates.length; i++){
                 flightPlanCoordinatestemp = [{"lat":flightPlanCoordinates[i-1].lat,"lng":flightPlanCoordinates[i-1].lng},
@@ -100,11 +101,12 @@
                   strokeOpacity: 1.0,
                   strokeWeight: 6
                 });
-                var midPointMarker = new google.maps.Marker({  
+                markers.push( new google.maps.Marker({  
                     position: flightPlanCoordinatestemp[0],  
                     map: map,
-                   // visible: false  // NB the marker is 'invisible'
-                });
+                    // visible: false  // NB the marker is 'invisible'
+                  })
+                );
 
 
 
@@ -121,8 +123,8 @@
           content: contentString
         });
 
-        midPointMarker.addListener('click', function() {
-          infowindow.open(map, midPointMarker);
+        markers[markers.length-1].addListener('click', function() {
+          infowindow.open(map, markers[markers.length-1]);
         });
 
 
