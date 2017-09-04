@@ -2739,6 +2739,7 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         link_x:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=x",
         link_y:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=y",
         link_z:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z",
+        link_speed:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
       origin:response[i].origin});
     }
   });
