@@ -90,11 +90,11 @@
               var markers = []; 
               var infowindows = [];
               var contentStrings = [];
-              var speed_val = 0;
+              var speed_vals = [];
               for(i = 1; i < flightPlanCoordinates.length; i++){
                 flightPlanCoordinatestemp = [{"lat":flightPlanCoordinates[i-1].lat,"lng":flightPlanCoordinates[i-1].lng},
                 {"lat":flightPlanCoordinates[i].lat,"lng":flightPlanCoordinates[i].lng}];
-                speed_val = speed(flightPlanCoordinatestemp,flightPlanCoordinates[i-1].Timestamp, flightPlanCoordinates[i].Timestamp);
+                speed_vals.push(speed(flightPlanCoordinatestemp,flightPlanCoordinates[i-1].Timestamp, flightPlanCoordinates[i].Timestamp));
                 //flightPlanCoordinatestemp = flightPlanCoordinates.slice(i, i+2);
                 var flightPath = new google.maps.Polyline({
                   path: flightPlanCoordinatestemp,
@@ -117,7 +117,7 @@
                     '<div id="siteNotice">'+
                     '</div>'+
                     '<div id="bodyContent">'+
-                    '<p>'+speed_val+' km/h</p>'+
+                    '<p>'+speed_vals[speed_vals.length-1]+' km/h</p>'+
                     '</div>'+
                     '</div>');
 
