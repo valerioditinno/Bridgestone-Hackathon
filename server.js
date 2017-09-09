@@ -8,7 +8,6 @@ var express = require('express'),
   Task = require('./api/models/serverModel'),
   index = require('./index'),
   routes = require('./api/routes/serverRoutesBase'),
-  routersito = require('./api/routes/sitoRoutes'),
   bodyParser = require('body-parser'),
   path = require('path'),
   engines = require('consolidate');
