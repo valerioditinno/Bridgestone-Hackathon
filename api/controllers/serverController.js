@@ -107,13 +107,13 @@ exports.userSessions = function(req, res) {
             }
           });
         }
+        function testAsync(data){
+          console.log("test async");
+          console.log(data);
+          console.log(sessions[i]);
+        }
       }
             
-      function testAsync(data){
-        console.log("test async");
-        console.log(data);
-        console.log(sessions[i]);
-      }
 
       res.json(sessions);
   });
