@@ -252,7 +252,7 @@ function updateSessionInfo(taskAvg, new_errors = 0){
     session.lng_end = taskAvg.lng;
     session.last_update = taskAvg.Timestamp;
       
-    Session.findOneAndUpdate({Session: taskAvg.Session, Username: UserID}, session, {new: true}, function(err, newsession) {
+    Session.findOneAndUpdate({Timestamp: taskAvg.Session, Username: taskAvg.UserID}, session, {new: true}, function(err, newsession) {
       if(err){
         console.log(err);
       }else{
