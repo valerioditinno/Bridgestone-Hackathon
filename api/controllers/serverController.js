@@ -98,24 +98,11 @@ exports.userSessions = function(req, res) {
           var end_point = null;
           var first_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : -1 } }, function(err, post) {
             if(post !== null){
-              get_geolcode(post.lat, post.lng, function(data){
-                var response = JSON.parse(data);
-                if(response.status == 'OK'){
-                  start_point = response.results[0].formatted_address;
-                  console.log(start_point);
-                }
-              });
+              console.log(sessions[i]);
             }
           });
           var last_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : 1 } }, function(err, post) {
             if(post !== null){
-              get_geolcode(post.lat, post.lng, function(data){
-                var response = JSON.parse(data);
-                if(response.status == 'OK'){
-                  end_point = response.results[0].formatted_address;
-                  console.log(end_point);
-                }
-              });
             }
           });
         }
