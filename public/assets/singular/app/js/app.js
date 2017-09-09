@@ -3931,3 +3931,38 @@ App.service('touchDrag', ['$document', 'browser', function ($document, browser) 
     }
   };
 }]);
+
+
+function get_geolcode(lat, lng, callback) {
+  var options = {
+      uri : 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +'&key=AIzaSyDh2ZoqiOa5x4N43XJoIWZOc__7MvHPa7I',
+      method : 'GET'
+  }; 
+  var res = '';
+  console.log(options.uri);
+  request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          res = body;
+      }
+      else {
+          res = {
+            "results" : [],
+            "status" : "ZERO_RESULTS_WITH_ERROR"
+          };
+      }
+      callback(res);
+  });
+}
+
+
+/**
+ if(post !== null){
+              get_geolcode(post.lat, post.lng, function(data){
+                var response = JSON.parse(data);
+                if(response.status == 'OK'){
+                  start_point = response.results[0].formatted_address;
+                  console.log(start_point);
+                }
+              });
+            }
+ */
