@@ -233,7 +233,7 @@ function extractTaskAvg(task){
 }
 
 function updateSessionInfo(taskAvg, new_errors = 0){
-  Session.findOne({Session: taskAvg.Session, Username: UserID}, function(err, session) {
+  Session.findOne({Session: taskAvg.Session, Username: taskAvg.UserID}, function(err, session) {
     if(session.first_update === "-1"){
       session.first_update = taskAvg.Timestamp;
       session.lat_start = taskAvg.lat;
