@@ -243,10 +243,10 @@ function updateSessionInfo(taskAvg, new_errors = 0){
       var old_distance = session.total_distance;
       var old_score = session.score;
       var old_error = session.error;
-      var distance_to_add = distance(session.lat_start, session.lng_start, taskAvg.lat, taskAvg.lng, "K");
+      var distance_to_add = distance(session.lat_start, session.lng_start, taskAvg.lat, taskAvg.lng, "K") * 1000;
       session.total_distance = old_distance + distance_to_add;
       session.error = old_error + new_errors;
-      session.score = old_score + distance_to_add - (new_errors * 0.5);
+      session.score = old_score + distance_to_add - (new_errors * 100);
     }
     session.lat_end = taskAvg.lat;
     session.lng_end = taskAvg.lng;

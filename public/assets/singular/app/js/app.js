@@ -2741,6 +2741,15 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         link_z:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z",
         link_speed:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
       origin:response[i].origin});
+      if(response[i].lng_start){
+        get_geolcode(response[i].lat_start, response[i].lng_start, function(data){
+          console.log(data);
+          get_geolcode(response[i].lat_end, response[i].lng_end, function(data){
+            console.log(data);
+          });  
+        });
+      }
+      
     }
   });
 
