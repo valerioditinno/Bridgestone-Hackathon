@@ -199,8 +199,7 @@ exports.sessionDetail = function(req, res) {
 
 function extractTaskAvg(task){
     var data = task.Data;
-    var tasksList = data.match(regex_avg_gps); // id = 'Ahg6qcgoay4'
-    console.log(tasksList);
+    var tasksList = data.match(regex_avg_gps); 
     if(tasksList != null){
       for(var i = 0; i<tasksList.length; i++){
         console.log('test regex_avg_gps data');
@@ -222,12 +221,60 @@ function extractTaskAvg(task){
             Session : task.Session
           });
           taskAvg.save(function(err, task) {
-            if (err)
+            if (err){
               console.log("error " + err);
+            }else{
+              updateSessionInfo(task);
+            }
           });
         }
       }
     }
+}
+
+function updateSessionInfo(taskAvg, new_errors = 0){
+  Session.findOne({Session: taskAvg.Session, Username: UserID}, function(err, session) {
+    if(session.first_update === "-1"){
+      session.first_update = taskAvg.Timestamp;
+      session.lat_start = taskAvg.lat;
+      session.lng_start = taskAvg.lng;
+    }else{
+      var old_distance = session.total_distance;
+      var old_score = session.score;
+      var old_error = session.error;
+      var distance_to_add = distance(session.lat_start, session.lng_start, taskAvg.lat, taskAvg.lng, "K");
+      session.total_distance = old_distance + distance_to_add;
+      session.error = old_error + new_errors;
+      session.score = old_score + distance_to_add - (new_errors * 0.5);
+    }
+    session.lat_end = taskAvg.lat;
+    session.lng_end = taskAvg.lng;
+    session.last_update = taskAvg.Timestamp;
+      
+    Session.findOneAndUpdate({Session: taskAvg.Session, Username: UserID}, session, {new: true}, function(err, newsession) {
+      if(err){
+        console.log(err);
+      }else{
+        console.log('aggioranto');
+        console.log(newsession);
+      }
+    });
+  });
+}
+
+
+function distance(lat1, lon1, lat2, lon2, unit) {
+  var radlat1 = Math.PI * lat1/180
+  var radlat2 = Math.PI * lat2/180
+  var theta = lon1-lon2
+  var radtheta = Math.PI * theta/180
+  var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+  dist = Math.acos(dist)
+  dist = dist * 180/Math.PI
+  dist = dist * 60 * 1.1515
+  if (unit=="K") { dist = dist * 1.609344 }
+  if (unit=="N") { dist = dist * 0.8684 }
+  return dist
 }
 
 

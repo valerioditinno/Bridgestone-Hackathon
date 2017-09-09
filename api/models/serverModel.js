@@ -60,6 +60,38 @@ var SessionSchema = new Schema({
   Created_date: {
     type: Date,
     default: Date.now
+  },
+  lat_start: {
+    type: Number
+  },
+  lng_start: {
+    type: Number
+  },
+  lat_end: {
+    type: Number
+  },
+  lng_end: {
+    type: Number
+  },
+  last_update: {
+    type: String,
+    default: "-1"
+  },
+  first_update: {
+    type: String,
+    default: "-1"
+  },
+  total_distance: {
+    type: Number,
+    default: 0
+  },
+  total_error: {
+    type: Number,
+    default: 0
+  },
+  score:{
+    type: Number,
+    default: 0
   }
 });
 
