@@ -101,6 +101,8 @@ exports.userSessions = function(req, res) {
               console.log(sessions[i]);
             }
           });
+          console.log("first step");
+          console.log(first_step);
           var last_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : 1 } }, function(err, post) {
             if(post !== null){
             }
