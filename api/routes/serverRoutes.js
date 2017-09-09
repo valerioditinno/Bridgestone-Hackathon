@@ -16,7 +16,7 @@ module.exports = function(app) {
     app.use( '/site/', view);
 
     app.get('/', function (req, res) {
-        res.send(test(req));
+        res.redirect("/site/");
     });
 
     app.get('/listusers', function(req, res){
@@ -24,7 +24,7 @@ module.exports = function(app) {
     });
     
     app.post('/', function (req, res) {
-        res.send(test(req));
+        res.redirect("/site/");
     });
 
     app.post('/createtask', function(req, res){
@@ -43,48 +43,10 @@ module.exports = function(app) {
         controller.userSessions(req,res);
     });
 
-    app.get('/maps', function(req, res) {
-        res.sendFile(path.join(__dirname + '/view/maps.html'));
-    });
-
-    app.get('/mappasessiones', function(req, res) {
-        res.redirect('/routes/view/mappasessione.html' + '?Session=23&Username=daniele');
-    });
-
-    app.get('/utenti', function(req, res) {
-        res.sendFile(path.join(__dirname + '/view/utenti.html'));
-    });
-
-    app.get('/sessioni', function(req, res) {
-        res.sendFile(path.join(__dirname + '/view/sessioni.html'));
-    });
-
-    app.get('/js/jquery',function (req, res) {
-        res.sendFile(path.join(__dirname + '/view/js/jquery-3.2.1.min.js'));
-    });
-
-    app.get('/data/json2*',function (req, res) {
-        res.sendFile(path.join(__dirname + '/view/data/maps_20170723.json'));
-    });
-
-    app.get('/data/json*',function (req, res) {
-        res.sendFile(path.join(__dirname + '/view/data/maps_20170722.json'));
-    });
-
     app.post('/login',function (req, res) {
         controller.login(req, res);
     });
 };
-
-function test(req){
-    console.log ("ecco una POST");
-   // console.log(req.body);  
-    console.log(req.params);
-    console.log ("ecco una");
-    //logger.info("test");
-    return "hello";
-    controller.create_a_task(req);
-}
 
 function create_a_task(req, res){
     console.log(req.body);
