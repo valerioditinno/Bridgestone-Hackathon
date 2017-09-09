@@ -108,14 +108,17 @@ exports.userSessions = function(req, res) {
           });
         }
       }
+            
+      function testAsync(data){
+        console.log("test async");
+        console.log(data);
+        console.log(sessions[i]);
+      }
+
       res.json(sessions);
   });
 };
 
-function testAsync(data){
-  console.log("test async");
-  console.log(data);
-}
 
 exports.create_a_task = function(req, res) { 
   var new_task = new Task(req.body);
