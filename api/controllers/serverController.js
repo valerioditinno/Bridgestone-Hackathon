@@ -98,11 +98,10 @@ exports.userSessions = function(req, res) {
           var end_point = null;
           var first_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : -1 } }, function(err, post) {
             if(post !== null){
-              console.log(sessions[i]);
+              testAsync(post);
             }
           });
-          console.log("first step");
-          console.log(first_step);
+          
           var last_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : 1 } }, function(err, post) {
             if(post !== null){
             }
@@ -112,6 +111,11 @@ exports.userSessions = function(req, res) {
       res.json(sessions);
   });
 };
+
+function testAsync(data){
+  console.log("test async");
+  console.log(data);
+}
 
 exports.create_a_task = function(req, res) { 
   var new_task = new Task(req.body);
