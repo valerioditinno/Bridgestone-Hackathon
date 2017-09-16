@@ -2746,12 +2746,13 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         link_speed:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
       origin:response[i].origin});
       if(response[i].first_update != -1){
-        get_geolcode($http, response[i].lat_start, response[i].lng_start, data, function(res, data_in){
+        get_geolcode($http, response[i].lat_start, response[i].lng_start, data, index, function(res, data_in, index){
           console.log(res);
           console.log(data_in);
+          console.log(index);
            
         });
-        get_geolcode($http, response[i].lat_end, response[i].lng_end, data, function(res, data_in){
+        get_geolcode($http, response[i].lat_end, response[i].lng_end, data, index,  function(res, data_in, index){
           console.log(res);
           console.log(data_in);
         }); 
@@ -3948,7 +3949,7 @@ App.service('touchDrag', ['$document', 'browser', function ($document, browser) 
 }]);
 
 
-function get_geolcode(http, lat, lng, data_in, callback) {
+function get_geolcode(http, lat, lng, data_in, index, callback) {
 
 
     return http.get('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -3961,7 +3962,7 @@ function get_geolcode(http, lat, lng, data_in, callback) {
       angular.forEach(res.data.results, function (item) {
         addresses.push(item.formatted_address);
       });
-      callback(res, data_in);
+      callback(res, data_in, index);
       console.log(addresses);
       return addresses;
     });
