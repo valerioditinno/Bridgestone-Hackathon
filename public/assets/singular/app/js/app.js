@@ -2744,10 +2744,11 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
       if(response[i].lng_start != 'undefined'){
         get_geolcode($http, response[i].lat_start, response[i].lng_start, function(data){
           console.log(data);
-          get_geolcode($http, response[i].lat_end, response[i].lng_end, function(data){
-            console.log(data)
-          });  
+           
         });
+        get_geolcode($http, response[i].lat_end, response[i].lng_end, function(data){
+          console.log(data)
+        }); 
       }
     }
   });
