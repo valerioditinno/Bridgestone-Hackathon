@@ -2738,20 +2738,22 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         data.push({
         imagePath :'app/img/loading.gif',  
         sessionid: response[i].Timestamp, date: response[i].Created_date, 
+        startpoint : '',
+        endpoint: '',
         link_x:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=x",
         link_y:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=y",
         link_z:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z",
         link_speed:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
       origin:response[i].origin});
       if(response[i].first_update != -1){
-        get_geolcode($http, response[i].lat_start, response[i].lng_start, data[i], function(res, data){
+        get_geolcode($http, response[i].lat_start, response[i].lng_start, data[i], function(res, data_in){
           console.log(res);
-          console.log(data);
+          console.log(data_in);
            
         });
-        get_geolcode($http, response[i].lat_end, response[i].lng_end, data[i], function(res, data){
+        get_geolcode($http, response[i].lat_end, response[i].lng_end, data[i], function(res, data_in){
           console.log(res);
-          console.log(data);
+          console.log(data_in);
         }); 
       }
     }
@@ -3946,7 +3948,7 @@ App.service('touchDrag', ['$document', 'browser', function ($document, browser) 
 }]);
 
 
-function get_geolcode(http, lat, lng, data, callback) {
+function get_geolcode(http, lat, lng, data_in, callback) {
 
 
     return http.get('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -3959,7 +3961,7 @@ function get_geolcode(http, lat, lng, data, callback) {
       angular.forEach(res.data.results, function (item) {
         addresses.push(item.formatted_address);
       });
-      callback(res, data);
+      callback(res, data_in);
       console.log(addresses);
       return addresses;
     });

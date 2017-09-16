@@ -11,8 +11,8 @@
             <table data-ng-table="table.tableParams2" show-filter="true" class="table table-bordered table-striped">
                 <tbody>
                     <tr data-ng-repeat="session in $data">
-                    <td data-title="'StartPoint'" filter="{ 'startpoint': 'text' }">{{session.startpoint}}<img ng-hide="session.startpoint != ''" ng-src="{{session.imagePath}}" /></td>
-                    <td data-title="'EndPoint'" filter="{ 'endpoint': 'text' }">{{session.endpoint}}<img ng-hide="session.endpoint != ''" ng-src="{{session.imagePath}}" /></td>
+                    <td data-title="'StartPoint'" filter="{ 'startpoint': 'text' }">{{session.startpoint}}<img ng-hide="session.startpoint == ''" ng-src="{{session.imagePath}}" /></td>
+                    <td data-title="'EndPoint'" filter="{ 'endpoint': 'text' }">{{session.endpoint}}<img ng-hide="session.endpoint == ''" ng-src="{{session.imagePath}}" /></td>
                     <td data-title="'Date'" filter="{ 'date': 'text' }">{{session.sessionid*1000 | date : 'dd/MM/yyyy HH:mm'}}</td>
                     <td data-title="''"><a href="{{session.link_x}}" target="_blank">maps_x</a></td>
                     <td data-title="''"><a href="{{session.link_y}}" target="_blank">maps_y</a></td>
