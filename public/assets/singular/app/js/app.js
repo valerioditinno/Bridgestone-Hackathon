@@ -2741,7 +2741,7 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         link_z:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z",
         link_speed:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
       origin:response[i].origin});
-      if(response[i].lng_start){
+      if(response[i].lng_start != 'undefined'){
         get_geolcode($http, response[i].lat_start, response[i].lng_start, function(data){
           console.log(data);
           get_geolcode($http, response[i].lat_end, response[i].lng_end, function(data){
@@ -3944,7 +3944,7 @@ App.service('touchDrag', ['$document', 'browser', function ($document, browser) 
 function get_geolcode(http, lat, lng, callback) {
 
 
-    return http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+    return http.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
         latlng : lat + ',' + lng,
         key: 'AIzaSyDh2ZoqiOa5x4N43XJoIWZOc__7MvHPa7I'
