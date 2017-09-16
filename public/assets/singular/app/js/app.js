@@ -2733,8 +2733,10 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
       }
   }).success(function (response) {
     data = [];
+    var count_data = -1;
     for(var i = 0; i<response.length; i++){
-      if(typeof response[i].Site ==='undefined' || !response[i].Site)
+      if(typeof response[i].Site ==='undefined' || !response[i].Site){
+        count_data++;
         data.push({
         imagePath :'app/img/loading.gif',  
         sessionid: response[i].Timestamp, date: response[i].Created_date, 
@@ -2744,18 +2746,20 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         link_y:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=y",
         link_z:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z",
         link_speed:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
-      origin:response[i].origin});
-      if(response[i].first_update != -1){
-        get_geolcode($http, response[i].lat_start, response[i].lng_start, data, index, function(res, data_in, index){
-          console.log(res);
-          console.log(data_in);
-          console.log(index);
-           
-        });
-        get_geolcode($http, response[i].lat_end, response[i].lng_end, data, index,  function(res, data_in, index){
-          console.log(res);
-          console.log(data_in);
-        }); 
+        origin:response[i].origin});
+      
+        if(response[i].first_update != -1){
+          get_geolcode($http, response[i].lat_start, response[i].lng_start, data[count_data], 'startpoint', function(res, data_in, point){
+            data_in[point] = res[0];
+            
+          });
+          get_geolcode($http, response[i].lat_end, response[i].lng_end, data[count_data], 'endpoint',  function(res, data_in, point){
+            data_in[point] = res[0];
+          }); 
+        }else{
+          data[count_data].startpoint = 'no data';
+          data[count_data].endpoint = 'no data';
+        }
       }
     }
   });
@@ -2767,7 +2771,8 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
     page: 1,            // show first page
     count: 10,          // count per page
     filter: {
-      sessionid: '',
+      startpoint: '',
+      endpoint: '',
       date: ''
     }
   }, {
@@ -3949,10 +3954,10 @@ App.service('touchDrag', ['$document', 'browser', function ($document, browser) 
 }]);
 
 
-function get_geolcode(http, lat, lng, data_in, index, callback) {
+function get_geolcode(http, lat, lng, data_in, point, callback) {
 
 
-    return http.get('https://maps.googleapis.com/maps/api/geocode/json', {
+    http.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
         latlng : lat + ',' + lng,
         key: 'AIzaSyDh2ZoqiOa5x4N43XJoIWZOc__7MvHPa7I'
@@ -3962,9 +3967,7 @@ function get_geolcode(http, lat, lng, data_in, index, callback) {
       angular.forEach(res.data.results, function (item) {
         addresses.push(item.formatted_address);
       });
-      callback(res, data_in, index);
-      console.log(addresses);
-      return addresses;
+      callback(addresses, data_in, point);
     });
 /*
   var options = {

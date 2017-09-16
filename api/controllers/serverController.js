@@ -232,7 +232,9 @@ function extractTaskAvg(task){
     }
 }
 
-function updateSessionInfo(taskAvg, new_errors = 0){
+function updateSessionInfo(taskAvg, new_errors){
+  if(typeof new_errors  !== 'undefined')
+    new_errors = 0;
   console.log("- " + taskAvg.Session + " - " +taskAvg.UserID);
   Session.findOne({Timestamp: taskAvg.Session, Username: taskAvg.UserID}, function(err, session) {
     if(session.first_update === "-1"){
