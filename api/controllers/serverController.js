@@ -134,7 +134,7 @@ exports.create_a_task = function(req, res) {
         res.send(err);
       res.json(taskavg);
     });*/
-    res.send("CIAO");
+    res.send("7");
      // res.json(task);
   });
 };
