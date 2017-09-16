@@ -2,7 +2,8 @@
 
 
 var mongoose = require('mongoose'), 
-    moment = require('moment');
+    moment = require('moment'),
+    Promise = require('es6-promise').Promise;
 
 var Task = mongoose.model('Tasks');
 var TaskAvg = mongoose.model('TasksAvg');
@@ -120,6 +121,29 @@ exports.userSessions = function(req, res) {
 };
 
 
+exports.create_a_task_old = function(req, res) { 
+  var new_task = new Task(req.body);
+  console.log(new_task);
+  extractTaskAvg (req.body);
+  new_task.save(function(err, task) {
+    if (err){
+      res.send(err);
+    }
+    
+    var data = req.body.Data;
+    Session.findOne({"Username": data.Username, "Timestamp": data.Session}, function(err, session_temp) {
+      if (err){
+        res.send(err);
+      }
+      console.log(session_temp);
+      res.send(session_temp.score);
+    });
+
+  });
+};
+
+
+
 exports.create_a_task = function(req, res) { 
   var new_task = new Task(req.body);
   console.log(new_task);
@@ -128,16 +152,15 @@ exports.create_a_task = function(req, res) {
     if (err){
       res.send(err);
     }
-    /*
-    Session.findOne({"UserID": req.query.Username, "Session": req.query.Session}, function(err, taskavg) {
-      if (err)
-        res.send(err);
-      res.json(taskavg);
-    });*/
-    res.send("7");
-     // res.json(task);
+    var data = req.body;
+    findSession(data.UserID, data.Session).then(function (session) {
+      var score = parseInt(session.score);
+      res.send(score + "");
+    });
   });
 };
+
+
 
 exports.create_a_task_by_name = function(name, res) {
   var new_task = new Task(name);
@@ -252,7 +275,6 @@ function extractTaskAvg(task){
 
 function updateSessionInfo(taskAvg){
   var new_errors = taskAvg.Errors;
-  console.log("- " + taskAvg.Session + " - " +taskAvg.UserID);
   Session.findOne({Timestamp: taskAvg.Session, Username: taskAvg.UserID}, function(err, session) {
     if(session.first_update === "-1"){
       session.first_update = taskAvg.Timestamp;
@@ -276,7 +298,6 @@ function updateSessionInfo(taskAvg){
         console.log(err);
       }else{
         console.log('aggioranto');
-        console.log(newsession);
       }
     });
   });
@@ -317,4 +338,17 @@ function get_geolcode(lat, lng, callback) {
         }
         callback(res);
     });
+}
+
+
+function findSession(username, timestamp) {
+  return new Promise(function (resolve, reject) {
+    Session.findOne({"Username": username, "Timestamp": timestamp}, function(err, session_temp) {
+      if (err){
+        reject(error);
+        return;
+      }
+      resolve(session_temp);
+    });
+  });
 }
