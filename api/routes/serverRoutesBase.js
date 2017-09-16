@@ -40,6 +40,10 @@ router.get('/sessionDetail', function(req,res){
     controller.sessionDetail(req,res);
 });
 
+router.get('/sessionScore', function(req,res){
+    controller.sessionScore(req,res);
+});
+
 router.get('/usersessions', function(req,res){
     controller.userSessions(req,res);
 });

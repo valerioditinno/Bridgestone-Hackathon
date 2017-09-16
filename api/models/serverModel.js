@@ -22,6 +22,10 @@ var TaskSchema = new Schema({
   Session: {
     type: String
   },
+  Errors: {
+    type: Number,
+    default: 0
+  },
   Created_date: {
     type: Date,
     default: Date.now
@@ -117,6 +121,10 @@ var TaskAvgSchema = new Schema({
   },
   Session: {
     type: String
+  },
+  Errors: {
+    type: Number,
+    default: 0
   },
   Timestamp:{
     type: String

@@ -125,9 +125,17 @@ exports.create_a_task = function(req, res) {
   console.log(new_task);
   extractTaskAvg (req.body);
   new_task.save(function(err, task) {
-    if (err)
+    if (err){
       res.send(err);
-    res.json(task);
+    }
+    /*
+    Session.findOne({"UserID": req.query.Username, "Session": req.query.Session}, function(err, taskavg) {
+      if (err)
+        res.send(err);
+      res.json(taskavg);
+    });*/
+    res.send("CIAO");
+     // res.json(task);
   });
 };
 
@@ -189,13 +197,22 @@ exports.add_data_from_phone = function(req, res){
 };
 
 exports.sessionDetail = function(req, res) {
-  console.log(req.query.Username);
   TaskAvg.find({"UserID": req.query.Username, "Session": req.query.Session}, function(err, taskavg) {
     if (err)
       res.send(err);
     res.json(taskavg);
   });
 };
+
+
+exports.sessionScore = function(req, res) {
+  Session.findOne({"UserID": req.query.Username, "Session": req.query.Session}, function(err, taskavg) {
+    if (err)
+      res.send(err);
+    res.json(taskavg);
+  });
+};
+
 
 function extractTaskAvg(task){
     var data = task.Data;
@@ -218,7 +235,8 @@ function extractTaskAvg(task){
             lng: lnglat[1],
             Timestamp : res[0],
             UserID : task.UserID,
-            Session : task.Session
+            Session : task.Session, 
+            Errors: task.Errors
           });
           taskAvg.save(function(err, task) {
             if (err){
@@ -232,9 +250,8 @@ function extractTaskAvg(task){
     }
 }
 
-function updateSessionInfo(taskAvg, new_errors){
-  if(typeof new_errors  !== 'undefined')
-    new_errors = 0;
+function updateSessionInfo(taskAvg){
+  var new_errors = taskAvg.Errors;
   console.log("- " + taskAvg.Session + " - " +taskAvg.UserID);
   Session.findOne({Timestamp: taskAvg.Session, Username: taskAvg.UserID}, function(err, session) {
     if(session.first_update === "-1"){
@@ -245,7 +262,7 @@ function updateSessionInfo(taskAvg, new_errors){
       var old_distance = session.total_distance;
       var old_score = session.score;
       var old_error = session.error;
-      var distance_to_add = distance(session.lat_start, session.lng_start, taskAvg.lat, taskAvg.lng, "K") * 1000;
+      var distance_to_add = distance(session.lat_end, session.lng_end, taskAvg.lat, taskAvg.lng, "K") * 1000;
       session.total_distance = old_distance + distance_to_add;
       session.error = old_error + new_errors;
       session.score = old_score + distance_to_add - (new_errors * 100);
