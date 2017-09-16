@@ -6,18 +6,31 @@
       <div data-ng-controller="AngularTableController as table" class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title">Filters</div>
+                <div class="panel-title">Your sessions</div>
             </div>
             <table data-ng-table="table.tableParams2" show-filter="true" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                        <th>Date</th>
+                        <th>Start Point</th>
+                        <th>End Point</th>
+                        <th><img src="app/img/lateral.png" height="22px"/></th>
+                        <th><img src="app/img/vertical.png" height="22px"/></th>
+                        <th><img src="app/img/front.png" height="22px"/></th>
+                        <th><img src="app/img/speed.png" height="22px"/></th>
+                        <th><img src="app/img/score.png" height="22px"/></th>
+                        </tr>
+                      </thead>
                 <tbody>
                     <tr data-ng-repeat="session in $data">
-                    <td data-title="'StartPoint'" filter="{ 'startpoint': 'text' }">{{session.startpoint}}<img height="44px" ng-hide="session.startpoint != ''" ng-src="{{session.imagePath}}" /></td>
-                    <td data-title="'EndPoint'" filter="{ 'endpoint': 'text' }">{{session.endpoint}}<img height="44px" ng-hide="session.endpoint != ''" ng-src="{{session.imagePath}}" /></td>
-                    <td data-title="'Date'" filter="{ 'date': 'text' }">{{session.sessionid*1000 | date : 'dd/MM/yyyy HH:mm'}}</td>
-                    <td data-title="ff"><a href="{{session.link_x}}" target="_blank">Lateral</a></td>
-                    <td data-title="''"><a href="{{session.link_y}}" target="_blank">Vertical</a></td>
-                    <td data-title="''"><a href="{{session.link_z}}" target="_blank">Frontal</a></td>
-                    <td data-title="''"><a href="{{session.link_speed}}" target="_blank">speed</a></td>
+                        <td>{{session.sessionid*1000 | date : 'dd/MM/yyyy HH:mm'}}</td>
+                        <td>{{session.startpoint}}<img height="34px" ng-hide="session.startpoint != ''" ng-src="{{session.imagePath}}" /></td>
+                        <td>{{session.endpoint}}<img height="34px" ng-hide="session.endpoint != ''" ng-src="{{session.imagePath}}" /></td>
+                        <td style="text-align:center"><a href="{{session.link_x}}" target="_blank"><img src="app/img/maps.png" height="30px"/></a></td>
+                        <td style="text-align:center"><a href="{{session.link_y}}" target="_blank"><img src="app/img/maps.png" height="30px"/></a></td>
+                        <td style="text-align:center"><a href="{{session.link_z}}" target="_blank"><img src="app/img/maps.png" height="30px"/></a></td>
+                        <td style="text-align:center"><a href="{{session.link_speed}}" target="_blank"><img src="app/img/maps.png" height="30px"/></a></td>
+                        <td style="text-align:center">{{session.score}}</td>
                     </tr>
                 </tbody>
             </table>

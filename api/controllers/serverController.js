@@ -237,13 +237,32 @@ exports.sessionScore = function(req, res) {
 };
 
 
+
+
+exports.myposition = function(req, res) {
+  Session.findOne({"UserID": req.query.Username, "Session": req.query.Session}, function(err, taskavg) {
+    if (err)
+      res.send(err);
+    res.json(taskavg);
+  });
+};
+
+
+exports.ranking = function(req, res) {
+  Session.aggregate( [ { $match : { Site: false} }, { $group: { _id: { user: "$Username" }, totalScore: { $sum: "$score" }, totalError: { $sum: "$total_error"} , totalDistance: { $sum: "$total_distance"} ,count: { $sum: 1 } } } ],
+  function(err, ranking) {
+    if (err)
+      res.send(err);
+    res.json(ranking);
+  });
+};
+
+
 function extractTaskAvg(task){
     var data = task.Data;
     var tasksList = data.match(regex_avg_gps); 
     if(tasksList != null){
       for(var i = 0; i<tasksList.length; i++){
-        console.log('test regex_avg_gps data');
-        console.log(tasksList[i]);
         var temp_i = tasksList[i].substr(1, tasksList[i].length-2);
         var res = temp_i.split(separatorData);
         if(res.length = 3){
@@ -261,6 +280,7 @@ function extractTaskAvg(task){
             Session : task.Session, 
             Errors: task.Errors
           });
+
           taskAvg.save(function(err, task) {
             if (err){
               console.log("error " + err);
@@ -275,7 +295,9 @@ function extractTaskAvg(task){
 
 function updateSessionInfo(taskAvg){
   var new_errors = taskAvg.Errors;
+  console.log(" ddd " +new_errors);
   Session.findOne({Timestamp: taskAvg.Session, Username: taskAvg.UserID}, function(err, session) {
+    var old_error = 0;
     if(session.first_update === "-1"){
       session.first_update = taskAvg.Timestamp;
       session.lat_start = taskAvg.lat;
@@ -283,12 +305,12 @@ function updateSessionInfo(taskAvg){
     }else{
       var old_distance = session.total_distance;
       var old_score = session.score;
-      var old_error = session.error;
+      old_error = session.total_error;
       var distance_to_add = distance(session.lat_end, session.lng_end, taskAvg.lat, taskAvg.lng, "K") * 1000;
       session.total_distance = old_distance + distance_to_add;
-      session.error = old_error + new_errors;
       session.score = old_score + distance_to_add - (new_errors * 100);
     }
+    session.total_error = old_error + new_errors;
     session.lat_end = taskAvg.lat;
     session.lng_end = taskAvg.lng;
     session.last_update = taskAvg.Timestamp;
@@ -325,7 +347,6 @@ function get_geolcode(lat, lng, callback) {
         method : 'GET'
     }; 
     var res = '';
-    console.log(options.uri);
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res = body;

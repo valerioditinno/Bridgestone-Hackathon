@@ -52,6 +52,14 @@ router.post('/login',function (req, res) {
     controller.login(req, res);
 });
 
+router.get('/ranking',function (req, res) {
+    controller.ranking(req, res);
+});
+
+router.get('/myposition',function (req, res) {
+    controller.myposition(req, res);
+});
+
 router.post('/loginSite',function (req, res) {
     controller.loginSite(req, res);
 });

@@ -2746,6 +2746,7 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         link_y:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=y",
         link_z:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z",
         link_speed:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
+        score:parseInt(response[i].score),
         origin:response[i].origin});
       
         if(response[i].first_update != -1){
