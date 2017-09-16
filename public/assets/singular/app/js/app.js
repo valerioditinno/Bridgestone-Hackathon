@@ -2746,12 +2746,12 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         link_speed:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
       origin:response[i].origin});
       if(response[i].first_update != -1){
-        get_geolcode($http, response[i].lat_start, response[i].lng_start, data[i], function(res, data_in){
+        get_geolcode($http, response[i].lat_start, response[i].lng_start, data, function(res, data_in){
           console.log(res);
           console.log(data_in);
            
         });
-        get_geolcode($http, response[i].lat_end, response[i].lng_end, data[i], function(res, data_in){
+        get_geolcode($http, response[i].lat_end, response[i].lng_end, data, function(res, data_in){
           console.log(res);
           console.log(data_in);
         }); 
