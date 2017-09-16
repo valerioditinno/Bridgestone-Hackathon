@@ -2736,7 +2736,7 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
     for(var i = 0; i<response.length; i++){
       if(typeof response[i].Site ==='undefined' || !response[i].Site)
         data.push({
-        imagePath :'/img/loading.gif',  
+        imagePath :'img/loading.gif',  
         sessionid: response[i].Timestamp, date: response[i].Created_date, 
         link_x:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=x",
         link_y:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=y",
@@ -2746,10 +2746,12 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
       if(response[i].first_update != -1){
         get_geolcode($http, response[i].lat_start, response[i].lng_start, data[i], function(res, data){
           console.log(res);
+          console.log(data);
            
         });
         get_geolcode($http, response[i].lat_end, response[i].lng_end, data[i], function(res, data){
-          console.log(res)
+          console.log(res);
+          console.log(data);
         }); 
       }
     }
