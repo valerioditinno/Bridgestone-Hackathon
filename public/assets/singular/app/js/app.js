@@ -2745,11 +2745,10 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         get_geolcode(response[i].lat_start, response[i].lng_start, function(data){
           console.log(data);
           get_geolcode(response[i].lat_end, response[i].lng_end, function(data){
-            console.log(data);
+            console.log(data)
           });  
         });
       }
-      
     }
   });
 
@@ -3943,6 +3942,23 @@ App.service('touchDrag', ['$document', 'browser', function ($document, browser) 
 
 
 function get_geolcode(lat, lng, callback) {
+
+
+    return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+        latlng : lat + ',' + lng,
+        key: 'AIzaSyDh2ZoqiOa5x4N43XJoIWZOc__7MvHPa7I'
+      }
+    }).then(function (res) {
+      var addresses = [];
+      angular.forEach(res.data.results, function (item) {
+        addresses.push(item.formatted_address);
+      });
+      callback(res);
+      console.log(addresses);
+      return addresses;
+    });
+/*
   var options = {
       uri : 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +'&key=AIzaSyDh2ZoqiOa5x4N43XJoIWZOc__7MvHPa7I',
       method : 'GET'
@@ -3960,7 +3976,7 @@ function get_geolcode(lat, lng, callback) {
           };
       }
       callback(res);
-  });
+  });*/
 }
 
 
