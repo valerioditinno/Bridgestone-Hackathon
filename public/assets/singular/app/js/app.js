@@ -178,7 +178,7 @@ App.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
       .state('app.dashboard', {
         url: '/dashboard',
         templateUrl: basepath('dashboard.html'),
-        resolve: requireDeps('ngTable', 'ngTableExport')
+        resolve: requireDeps('ngTable', 'ngTableExport', 'numeral')
       })
       .state('app.buttons', {
         url: '/buttons',
@@ -493,7 +493,8 @@ App
       'moment': ['app/vendor/moment/min/moment-with-locales.min.js'],
       'inputmask': ['app/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.min.js'],
       'flatdoc': ['app/vendor/flatdoc/flatdoc.js'],
-      'gcal': ['app/vendor/fullcalendar/dist/gcal.js']
+      'gcal': ['app/vendor/fullcalendar/dist/gcal.js'],
+      'numeral': ['app/vendor/numeral/min/numeral.min.js']
     },
     // Angular based script (use the right module name)
     modules: [
@@ -2734,8 +2735,8 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
           imagePath :'app/img/loading.gif',  
           username: response[i]._id.user,
           sessions: response[i].count,
-          distance: response[i].totalDistance,
-          score: parseInt(response[i].totalScore)
+          distance: numeral(response[i].totalDistance).format('0,00a'),
+          score: numeral(response[i].totalScore).format('0,00a')
         });
      }
    });
