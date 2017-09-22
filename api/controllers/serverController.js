@@ -249,7 +249,11 @@ exports.myposition = function(req, res) {
 
 
 exports.ranking = function(req, res) {
-  Session.aggregate( [ { $match : { Site: false} }, { $group: { _id: { user: "$Username" }, totalScore: { $sum: "$score" }, totalError: { $sum: "$total_error"} , totalDistance: { $sum: "$total_distance"} ,count: { $sum: 1 } } } ],
+  Session.aggregate( [ 
+    { $match : { Site: false} }, 
+    { $group: { _id: { user: "$Username" }, totalScore: { $sum: "$score" }, totalError: { $sum: "$total_error"} , totalDistance: { $sum: "$total_distance"} ,count: { $sum: 1 } } }, 
+    { $sort: { totalScore: -1} } 
+  ],
   function(err, ranking) {
     if (err)
       res.send(err);
