@@ -2735,7 +2735,7 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
           username: response[i]._id.user,
           sessions: response[i].count,
           distance: response[i].totalDistance,
-          score: response[i].totalScore
+          score: parseInt(response[i].totalScore)
         });
      }
    });
