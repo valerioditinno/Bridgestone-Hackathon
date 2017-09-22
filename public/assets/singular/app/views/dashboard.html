@@ -1,40 +1,73 @@
 <h3>Dashboard
-   <small>This is your dashboard</small>
+   <small>Game Overview</small>
 </h3>
 <div class="row">
    <div class="col-lg-12">
-      <div data-ng-controller="AngularTableController as table" class="container-fluid">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">Your sessions</div>
-            </div>
-            <table data-ng-table="table.tableParams2" show-filter="true" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                        <th>Date</th>
-                        <th>Start Point</th>
-                        <th>End Point</th>
-                        <th><img src="app/img/lateral.png" height="22px"/></th>
-                        <th><img src="app/img/vertical.png" height="22px"/></th>
-                        <th><img src="app/img/front.png" height="22px"/></th>
-                        <th><img src="app/img/speed.png" height="22px"/></th>
-                        <th><img src="app/img/score.png" height="22px"/></th>
-                        </tr>
-                      </thead>
-                <tbody>
-                    <tr data-ng-repeat="session in $data">
-                        <td>{{session.sessionid*1000 | date : 'dd/MM/yyyy HH:mm'}}</td>
-                        <td>{{session.startpoint}}<img height="34px" ng-hide="session.startpoint != ''" ng-src="{{session.imagePath}}" /></td>
-                        <td>{{session.endpoint}}<img height="34px" ng-hide="session.endpoint != ''" ng-src="{{session.imagePath}}" /></td>
-                        <td style="text-align:center"><a href="{{session.link_x}}" target="_blank"><img src="app/img/maps.png" height="30px"/></a></td>
-                        <td style="text-align:center"><a href="{{session.link_y}}" target="_blank"><img src="app/img/maps.png" height="30px"/></a></td>
-                        <td style="text-align:center"><a href="{{session.link_z}}" target="_blank"><img src="app/img/maps.png" height="30px"/></a></td>
-                        <td style="text-align:center"><a href="{{session.link_speed}}" target="_blank"><img src="app/img/maps.png" height="30px"/></a></td>
-                        <td style="text-align:center">{{session.score}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-      </div>
+      <p class="lead text-center">Ranking</p>
    </div>
 </div>
+
+<div data-ng-controller="AngularRankingController as table" class="row">
+    <div class="col-lg-12">
+       <!-- START panel-->
+       <div class="panel panel-default">
+          <!-- START table-responsive-->
+          <div class="table-responsive">
+             <table data-ng-table="table.tableParams2" id="table-ext-1" class="table table-bordered table-hover">
+                <thead>
+                   <tr>
+                      <th></th>
+                      <th>Picture</th>
+                      <th>Username</th>
+                      <th>Total Sessions</th>
+                      <th>Total Distance</th>
+                      <th>Total Score</th>
+                   </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="user in data">
+                        <td>{{user.position}}</td>
+                        <td><div class="media">
+                            <a href="#" class="media-left media-middle">
+                               <img ng-src="{{user.imagePath}}" alt="" class="thumb48 media-object img-responsive img-circle" />
+                            </a>
+                            <div class="media-body">
+                               <h4 class="media-heading">{{user.username}}</h4>
+                               <span class="text-muted">Username: {{user.username}}</span>
+                            </div>
+                         </div></td>
+                         <td>{{user.username}}</td>
+                         <td>{{user.sessions}}</td>
+                         <td>{{user.distance}}</td>
+                         <td>{{user.score}}</td>
+                    </tr>
+                </tbody>
+             </table>
+          </div>
+          <!-- END table-responsive-->
+          <div class="panel-footer">
+             <div class="row">
+                <div class="col-xs-6">
+                   <div class="input-group input-group-sm">
+                      <input type="text" placeholder="Search" class="form-control" />
+                      <span class="input-group-btn">
+                         <button type="button" class="btn btn-sm btn-default">Search</button>
+                      </span>
+                   </div>
+                </div>
+                <div class="col-xs-6">
+                   <div class="input-group input-group-sm pull-right">
+                      <select class="form-control">
+                         <option value="3">Export</option>
+                      </select>
+                      <span class="input-group-btn">
+                         <button class="btn btn-sm btn-default">Apply</button>
+                      </span>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <!-- END panel-->
+    </div>
+ </div>

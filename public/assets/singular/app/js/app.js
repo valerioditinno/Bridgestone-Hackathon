@@ -260,7 +260,7 @@ App.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
       .state('app.charts', {
         url: '/charts',
         templateUrl: basepath('charts.html'),
-        resolve: requireDeps('flot-chart', 'flot-chart-plugins')
+        resolve: requireDeps('ngTable', 'ngTableExport')
       })
       .state('app.table-responsive', {
         url: '/table-responsive',
@@ -2710,6 +2710,67 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
   };
 
 }]);
+
+
+/**=========================================================
+ * Module: AngularRankingController.js
+ * Controller for ngTables
+ =========================================================*/
+
+ App.controller('AngularRankingController', ['$scope', '$filter', 'ngTableParams', '$cookies', '$http', AngularRankingController]);
+ 
+ function AngularRankingController($scope, $filter, ngTableParams, $cookies, $http) {
+   'use strict';
+   var vm = this;
+   
+   $scope.data =  [];
+ 
+   $http.get('../ranking', {
+   }).success(function (response) {
+   $scope.data = [];
+     for(var i = 0; i<response.length; i++){
+        $scope.data.push({
+          position: (i+1),
+          imagePath :'app/img/loading.gif',  
+          username: response[i]._id.user,
+          sessions: response[i].count,
+          distance: response[i].totalDistance,
+          score: response[i].totalScore
+        });
+     }
+   });
+
+   
+
+  // FILTERS
+  // ----------------------------------- 
+
+  vm.tableParams2 = new ngTableParams({
+    page: 1,            // show first page
+    count: 10,          // count per page
+    filte:{
+
+    }
+  }, {
+      total: $scope.data.length, // length of data
+      getData: function ($defer, params) {
+        // use build-in angular filter
+        var orderedData = params.filter() ?
+          $filter('filter')($scope.data, params.filter()) :
+          $scope.data;
+
+        vm.sessions = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+
+        params.total(orderedData.length); // set total for recalc pagination
+        $defer.resolve(vm.sessions);
+      }
+    });
+   
+ }
+ 
+
+
+
 /**=========================================================
  * Module: AngularTableController.js
  * Controller for ngTables
@@ -2851,6 +2912,8 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
     });
 
 }
+
+
 AngularTableController.$inject = ["$scope", "$filter", "ngTableParams"];
 
 /**=========================================================
