@@ -299,7 +299,6 @@ function extractTaskAvg(task){
 
 function updateSessionInfo(taskAvg){
   var new_errors = taskAvg.Errors;
-  console.log(" ddd " +new_errors);
   Session.findOne({Timestamp: taskAvg.Session, Username: taskAvg.UserID}, function(err, session) {
     var old_error = 0;
     if(session.first_update === "-1"){
@@ -323,7 +322,6 @@ function updateSessionInfo(taskAvg){
       if(err){
         console.log(err);
       }else{
-        console.log('aggioranto');
       }
     });
   });
