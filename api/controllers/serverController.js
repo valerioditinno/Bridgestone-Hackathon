@@ -89,7 +89,7 @@ exports.loginSite = function(req, res) {
 };
 
 exports.userSessions = function(req, res) {
-  console.log(req.query.Username);
+  //console.log(req.query.Username);
   Session.find({"Username": req.query.Username}, function(err, sessions) {
     if (err)
       res.send(err);
@@ -123,7 +123,7 @@ exports.userSessions = function(req, res) {
 
 exports.create_a_task_old = function(req, res) { 
   var new_task = new Task(req.body);
-  console.log(new_task);
+  //console.log(new_task);
   extractTaskAvg (req.body);
   new_task.save(function(err, task) {
     if (err){
@@ -135,7 +135,7 @@ exports.create_a_task_old = function(req, res) {
       if (err){
         res.send(err);
       }
-      console.log(session_temp);
+      //console.log(session_temp);
       res.send(session_temp.score);
     });
 
@@ -146,7 +146,7 @@ exports.create_a_task_old = function(req, res) {
 
 exports.create_a_task = function(req, res) { 
   var new_task = new Task(req.body);
-  console.log(new_task);
+  //console.log(new_task);
   extractTaskAvg (req.body);
   new_task.save(function(err, task) {
     if (err){
@@ -168,7 +168,7 @@ exports.create_a_task_by_name = function(name, res) {
     if (err){
       res.send(err);
     }
-    console.log (task);
+    //console.log (task);
     //res.json(task);
   });
 };
@@ -240,10 +240,21 @@ exports.sessionScore = function(req, res) {
 
 
 exports.myposition = function(req, res) {
-  Session.findOne({"UserID": req.query.Username, "Session": req.query.Session}, function(err, taskavg) {
+  Session.aggregate( [ 
+    { $match : { Site: false} }, 
+    { $group: { _id: { user: "$Username" }, user: { $first : "$Username"}, totalScore: { $sum: "$score" }, totalError: { $sum: "$total_error"} , totalDistance: { $sum: "$total_distance"} ,count: { $sum: 1 } } }, 
+    { $sort: { totalScore: -1} } 
+  ],
+  function(err, ranking) {
     if (err)
       res.send(err);
-    res.json(taskavg);
+    else{
+      var index = ranking.map(function(d) { return d['user']; }).indexOf(req.query.Username);
+      console.log(req.body.Username);
+      console.log(req.query.Username);
+      console.log(index);
+      res.json({'position': index+1});
+    }
   });
 };
 
@@ -251,7 +262,7 @@ exports.myposition = function(req, res) {
 exports.ranking = function(req, res) {
   Session.aggregate( [ 
     { $match : { Site: false} }, 
-    { $group: { _id: { user: "$Username" }, totalScore: { $sum: "$score" }, totalError: { $sum: "$total_error"} , totalDistance: { $sum: "$total_distance"} ,count: { $sum: 1 } } }, 
+    { $group: { _id: { user: "$Username" }, user: { $first : "$Username"}, totalScore: { $sum: "$score" }, totalError: { $sum: "$total_error"} , totalDistance: { $sum: "$total_distance"} ,count: { $sum: 1 } } }, 
     { $sort: { totalScore: -1} } 
   ],
   function(err, ranking) {

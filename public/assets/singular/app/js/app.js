@@ -2724,8 +2724,13 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
    'use strict';
    var vm = this;
    
+   var globalcookie =  $cookies.get('globals') === undefined ? '' : JSON.parse($cookies.get('globals'));
+   var username = $cookies.get('globals') === undefined ? '' : globalcookie.currentUser.username
+
    $scope.data =  [];
- 
+   $scope.rank = '';
+   $scope.loading = 'app/img/loading.gif';
+   
    $http.get('../ranking', {
    }).success(function (response) {
    $scope.data = [];
@@ -2733,7 +2738,7 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
         $scope.data.push({
           position: (i+1),
           imagePath :'app/img/loading.gif',  
-          username: response[i]._id.user,
+          username: response[i].user,
           sessions: response[i].count,
           distance: numeral(response[i].totalDistance).format('0,00a'),
           score: numeral(response[i].totalScore).format('0,00a')
@@ -2742,6 +2747,13 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
    });
 
    
+   
+  $http.get('../myposition?Username='+username, {
+    }).success(function (response) {
+      $scope.rank =  numeral(response.position).format('0o');
+      $scope.ranknum =  response.position;
+  });
+
 
   // FILTERS
   // ----------------------------------- 

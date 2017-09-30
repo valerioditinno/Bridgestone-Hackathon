@@ -8,6 +8,16 @@
 </div>
 <div data-ng-controller="AngularRankingController as table" class="row">
     <div class="col-lg-12">
+        <!-- START widget-->
+        <div class="panel" ng-class="ranknum < 4 ? 'bg-success': 'bg-warning'">
+            <div class="panel-body text-center">
+                <h4 class="mt0">{{rank}}<img height="34px" ng-hide="rank != ''" ng-src="{{loading}}" /></h4>
+                <p class="mb0 text-muted">YOUR POSITION!</p>
+            </div>
+        </div>
+        <!-- END widget-->
+    </div>
+    <div class="col-lg-12">
        <!-- START panel-->
        <div class="panel panel-default">
           <!-- START table-responsive-->
@@ -16,7 +26,6 @@
                 <thead>
                    <tr>
                       <th></th>
-                      <th>Picture</th>
                       <th>Username</th>
                       <th>Total Sessions</th>
                       <th>Total Distance</th>
@@ -27,15 +36,11 @@
                     <tr data-ng-repeat="user in data">
                         <td>{{user.position}}</td>
                         <td><div class="media">
-                            <a href="#" class="media-left media-middle">
-                               <img ng-src="{{user.imagePath}}" alt="" class="thumb48 media-object img-responsive img-circle" />
-                            </a>
                             <div class="media-body">
                                <h4 class="media-heading">{{user.username}}</h4>
                                <span class="text-muted">Username: {{user.username}}</span>
                             </div>
                          </div></td>
-                         <td>{{user.username}}</td>
                          <td>{{user.sessions}}</td>
                          <td>{{user.distance}}</td>
                          <td>{{user.score}}</td>
