@@ -265,7 +265,7 @@ exports.ranking = function(req, res) {
 function extractTaskAvg(task){
     var data = task.Data;
     var tasksList = data.match(regex_avg_gps); 
-    if(tasksList != null){
+    if(tasksList != null && typeof tasksList != 'undefined'){
       for(var i = 0; i<tasksList.length; i++){
         var temp_i = tasksList[i].substr(1, tasksList[i].length-2);
         var res = temp_i.split(separatorData);
