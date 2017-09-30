@@ -3,9 +3,12 @@ var controller = require ("../controllers/serverController");
 var path = require('path');
 var express = require('express');
 var router = express.Router();
+const uuidv1 = require('uuid/v1');
 
+
+var uuid = uuidv1();
 router.use(function(req, res, next) {
-    console.log('[%s][API][INFO][%s] - %s', new Date().toISOString(), req.method, req.url);
+    console.log('[%s][API][%s][INFO][%s] - %s', new Date().toISOString(), uuid, req.method, req.url);
     next();
 });
 
@@ -33,7 +36,7 @@ router.post('/createtask', function(req, res){
 });
 
 router.post('/addinfo', function(req,res){
-    controller.create_a_task(req,res);
+    controller.create_a_task(req,res,uuid);
 });
 
 router.get('/sessionDetail', function(req,res){

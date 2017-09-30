@@ -121,10 +121,12 @@ exports.create_a_task_old = function(req, res) {
 
 
 
-exports.create_a_task = function(req, res) { 
+exports.create_a_task = function(req, res, uuid) { 
   var new_task = new Task(req.body);
-  //console.log(new_task);
-  extractTaskAvg (req.body);
+  //console.log(new_task);    
+  var payload = "utente: " + req.body.UserID + " sessionid: " + req.body.Session;
+  console.log('[%s][API][%s][INFO][%s] - %s \nPAYLOAD: %s', new Date().toISOString(), uuid, req.method, req.url, payload);
+  extractTaskAvg (req.body, uuid);
   new_task.save(function(err, task) {
     if (err){
       res.send(err);
@@ -247,10 +249,12 @@ exports.ranking = function(req, res) {
 };
 
 
-function extractTaskAvg(task){
+function extractTaskAvg(task, uuid){
     var data = task.Data;
     var tasksList = data.match(regex_avg_gps); 
     if(tasksList != null && typeof tasksList != 'undefined'){
+      var payload = "total new position: " + tasksList.length;
+      console.log('[%s][API][%s][INFO] \nPAYLOAD: %s', new Date().toISOString(), uuid, payload);
       for(var i = 0; i<tasksList.length; i++){
         var temp_i = tasksList[i].substr(1, tasksList[i].length-2);
         var res = temp_i.split(separatorData);
@@ -272,8 +276,11 @@ function extractTaskAvg(task){
 
           taskAvg.save(function(err, task) {
             if (err){
-              console.log("error " + err);
+              payload = "error saving new position: " + err;
+              console.log('[%s][API][%s][ERROR] \nPAYLOAD: %s', new Date().toISOString(), uuid, payload);
             }else{
+              payload = "session update";
+              console.log('[%s][API][%s][INFO] \nPAYLOAD: %s', new Date().toISOString(), uuid, payload);
               updateSessionInfo(task);
             }
           });
