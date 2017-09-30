@@ -1,7 +1,7 @@
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 3335,
-  morgan = require('morgan'),
+ // morgan = require('morgan'),
   path = require('path'),
   rfs = require('rotating-file-stream'),
   mongoose = require('mongoose'),
@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.use(morgan('combined', {stream: accessLogStream, skip: function (req, res) { return ( res.statusCode < 400)|| (req.url).indexOf("site") === -1 }}));
+//app.use(morgan('combined', {stream: accessLogStream, skip: function (req, res) { return ( res.statusCode < 400)|| (req.url).indexOf("site") === -1 }}));
 app.set('view engine', 'html');
  
 // dico all'app di servire tutto il contenuto della cartella 'public' come statico
