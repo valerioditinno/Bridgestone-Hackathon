@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 
 router.use(function(req, res, next) {
-    console.log('%s %s %s', req.method, req.url, req.path);
+    console.log('[%s][API][INFO][%s] - %s', new Date().toISOString(), req.method, req.url);
     next();
 });
 

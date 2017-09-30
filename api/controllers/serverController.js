@@ -46,7 +46,7 @@ exports.login = function(req, res) {
   var time = moment();
   var time_format = time.format('X');
   User.findOne({ "Username" : req.body.Username}, function(err, user) {
-    console.log('login: ' + req.body.Username);
+    console.log('[%s][API][DEBUG][%s][%s][%s]', new Date().toISOString(), req.method, req.url, req.body.Username);
     if (err)
       message = err;
     else{
@@ -93,30 +93,7 @@ exports.userSessions = function(req, res) {
   Session.find({"Username": req.query.Username}, function(err, sessions) {
     if (err)
       res.send(err);
-      for(var i = 0; i< sessions.length; i++){
-        if(!sessions[i].Site){
-          var start_point = null;
-          var end_point = null;
-          var first_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : -1 } }, function(err, post) {
-            if(post !== null){
-              testAsync(post);
-            }
-          });
-          
-          var last_step = TaskAvg.findOne({Session : sessions[i].Timestamp}, {}, { sort: { 'created_at' : 1 } }, function(err, post) {
-            if(post !== null){
-            }
-          });
-        }
-        function testAsync(data){
-          console.log("test async");
-          console.log(data);
-          console.log(sessions[i]);
-        }
-      }
-            
-
-      res.json(sessions);
+    res.json(sessions);
   });
 };
 
@@ -250,9 +227,6 @@ exports.myposition = function(req, res) {
       res.send(err);
     else{
       var index = ranking.map(function(d) { return d['user']; }).indexOf(req.query.Username);
-      console.log(req.body.Username);
-      console.log(req.query.Username);
-      console.log(index);
       res.json({'position': index+1});
     }
   });

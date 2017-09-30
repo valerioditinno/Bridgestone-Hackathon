@@ -2725,7 +2725,7 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
    var vm = this;
    
    var globalcookie =  $cookies.get('globals') === undefined ? '' : JSON.parse($cookies.get('globals'));
-   var username = $cookies.get('globals') === undefined ? '' : globalcookie.currentUser.username
+   var username = $cookies.get('globals') === undefined ? '' : globalcookie.currentUser.username;
 
    $scope.data =  [];
    $scope.rank = '';
@@ -2734,7 +2734,7 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
    $http.get('../ranking', {
    }).success(function (response) {
    $scope.data = [];
-     for(var i = 0; i<response.length; i++){
+     for(var i = 0; i<response.length && i<10; i++){
         $scope.data.push({
           position: (i+1),
           imagePath :'app/img/loading.gif',  
@@ -2758,26 +2758,12 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
   // FILTERS
   // ----------------------------------- 
 
-  vm.tableParams2 = new ngTableParams({
+  vm.tableParams3 = new ngTableParams({
     page: 1,            // show first page
     count: 10,          // count per page
-    filte:{
-
-    }
-  }, {
-      total: $scope.data.length, // length of data
-      getData: function ($defer, params) {
-        // use build-in angular filter
-        var orderedData = params.filter() ?
-          $filter('filter')($scope.data, params.filter()) :
-          $scope.data;
-
-        vm.sessions = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-
-        params.total(orderedData.length); // set total for recalc pagination
-        $defer.resolve(vm.sessions);
-      }
-    });
+    noPager: true,
+    counts: [] 
+  });
    
  }
  
