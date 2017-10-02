@@ -14,9 +14,6 @@ var request = require('request');
 var regex_avg_gps = /\[.{1,60}\]/gm;
 var separatorData = " - ";
 
-//global.regex_avg_gps = /\[.{1,60}\]/gm;
-//var DataFromPhone = mongoose.model('DataFromPhones');
-
 exports.list_all_tasks = function(req, res) {
   Task.find({}, function(err, task) {
     if (err)
@@ -206,9 +203,8 @@ exports.sessionDetail = function(req, res) {
   });
 };
 
-
 exports.sessionScore = function(req, res) {
-  Session.findOne({"UserID": req.query.Username, "Session": req.query.Session}, function(err, taskavg) {
+  Session.findOne({"Username": req.query.Username, "Timestamp": req.query.Session}, function(err, taskavg) {
     if (err)
       res.send(err);
     res.json(taskavg);
@@ -277,7 +273,7 @@ function extractTaskAvg(task, uuid){
           taskAvg.save(function(err, task) {
             if (err){
               payload = "error saving new position: " + err;
-              console.log('[%s][API][%s][ERROR] \nPAYLOAD: %s', new Date().toISOString(), uuid, payload);
+              console.error('[%s][API][%s][ERROR] \nPAYLOAD: %s', new Date().toISOString(), uuid, payload);
             }else{
               payload = "session update";
               console.log('[%s][API][%s][INFO] \nPAYLOAD: %s', new Date().toISOString(), uuid, payload);

@@ -287,7 +287,14 @@ App.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
       })
       .state('app.price', {
         url: '/price',
-        templateUrl: basepath('price-table.html')
+        templateUrl: basepath('price-table.html'),
+      })
+      .state('app.report', {
+        url: '/report',
+        templateUrl: basepath('report.html'),
+        params: {
+          session: null
+        }
       })
       .state('app.tasks', {
         url: '/tasks',

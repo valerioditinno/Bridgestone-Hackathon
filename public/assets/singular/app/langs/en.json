@@ -6,10 +6,10 @@
   },
   "sidebar": {
     "heading": {
-      "HEADER": "Main Navigation"
+      "HEADER": "Menu"
     },
     "nav": {
-      "DASHBOARD": "Dashboard",
+      "DASHBOARD": "Ranking",
       "DOCUMENTATION": "Documentation",
       "component": {
         "COMPONENTS": "Components",
@@ -36,7 +36,7 @@
         "VALIDATION": "Validation",
         "WIZARD": "Wizard"
       },
-      "CHART": "Charts",
+      "CHART": "Sessions",
       "table": {
         "TABLE": "Tables",
         "RESPONSIVE": "Responsive"
