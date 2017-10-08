@@ -8,6 +8,7 @@ const uuidv1 = require('uuid/v1');
 
 var uuid = uuidv1();
 router.use(function(req, res, next) {
+    uuid = uuidv1();
     console.log('[%s][API][%s][INFO][%s] - %s', new Date().toISOString(), uuid, req.method, req.url);
     next();
 });
