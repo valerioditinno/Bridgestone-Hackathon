@@ -13,7 +13,7 @@ var express = require('express'),
   engines = require('consolidate');
     
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Tododb'); 
+mongoose.connect('mongodb://localhost/YakaDB'); 
 
 var logDirectory = path.join(__dirname, 'logs');
 //Creating Router() object
