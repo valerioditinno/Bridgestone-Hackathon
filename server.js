@@ -14,13 +14,13 @@ var express = require('express'),
     
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/YakaDB'); 
-
+/*
 var logDirectory = path.join(__dirname, 'logs');
 //Creating Router() object
 var accessLogStream = rfs('access.log', {
   interval: '1d', // rotate daily
   path: logDirectory
-});
+});*/
 
 var router = express.Router();
 // Router middleware, mentioned it before defining routes.

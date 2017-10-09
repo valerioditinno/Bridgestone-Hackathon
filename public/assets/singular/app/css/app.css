@@ -11231,7 +11231,7 @@ body .toast-warning {
    Component: gmap.less
  ========================================================================== */
 .gmap {
-  height: 300px;
+  height: 450px;
   /* 
   Fixes Bootstrap issues with Google Maps
   see http://stackoverflow.com/a/9170756 

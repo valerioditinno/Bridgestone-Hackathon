@@ -293,8 +293,17 @@ App.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         url: '/report',
         templateUrl: basepath('report.html'),
         params: {
-          session: null
-        }
+          session: null,
+          username: null
+        },
+        controller: 'ReportController',
+        resolve: requireDeps('loadGoogleMapsJS', function () { return loadGoogleMaps(); }, 'AngularGM')
+      })
+      .state('app.reportApp', {
+        url: '/reportApp/:session/:username',
+        templateUrl: basepath('report.html'),
+        controller: 'ReportController',
+        resolve: requireDeps('loadGoogleMapsJS', function () { return loadGoogleMaps(); }, 'AngularGM')
       })
       .state('app.tasks', {
         url: '/tasks',
@@ -2809,6 +2818,7 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         sessionid: response[i].Timestamp, date: response[i].Created_date, 
         startpoint : '',
         endpoint: '',
+        username: username,
         link_x:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=x",
         link_y:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=y",
         link_z:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z",
@@ -3830,6 +3840,73 @@ App.controller('LockController', ['AuthenticationService', '$scope', '$cookies',
         }
       });
     };
+}]);
+
+
+App.controller('ReportController', ['AuthenticationService', '$scope', '$cookies', '$location', '$stateParams', 
+function(AuthenticationService, $scope, $cookies, $location, $stateParams){
+  var vm = this;
+  $scope.message = '';
+
+  var lat = 41.000;
+  var lng = 12.000;
+
+  $scope.gmap = {
+    gmapx : {
+      options:
+      { map: {
+        zoom : 8,
+        center : new google.maps.LatLng(lat, lng)
+      }}
+    },
+    gmapy : {
+      options:{
+        zoom : 8,
+        center : new google.maps.LatLng(lat, lng)
+      }
+    },
+    gmapz : {
+      options:{
+        zoom : 8,
+        center : new google.maps.LatLng(lat, lng)
+      }
+    },
+    gmapspeed : {
+      options:{
+        zoom : 8,
+        center : new google.maps.LatLng(lat, lng)
+      }
+    }
+  }
+
+  $scope.data = {
+    'session' : $stateParams.session,
+    'username' : $stateParams.username,
+    'percent': 81,
+    'totalScore' : '27000',
+    'startPoint': 'Circonvallazione Nomentana, 245, 00162 Roma RM, Italy',
+    'endPoint' : 'Viale Somalia, 74, 00199 Roma RM, Italy',
+    'totalDistance': '30km',
+    'averageSpeed':'70kmh',
+    'duration': '3h12m'
+  }
+
+  
+
+  $scope.$watch(function () {
+    return vm.center;
+  }, function (center) {
+    if (center) {
+      console.log(center);
+      vm.centerLat = center.lat();
+      vm.centerLng = center.lng();
+    }
+  });
+
+  this.updateCenter = function (lat, lng) {
+    vm.center = new google.maps.LatLng(lat, lng);
+  };
+
 }]);
 
 App.controller('LoginController', ['$scope', '$location', 'AuthenticationService',
