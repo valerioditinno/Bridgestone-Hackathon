@@ -3876,11 +3876,12 @@ function GoogleMapControllerNew($http, AuthenticationService, $scope, $cookies, 
         if(response.score < 0 ){
           $scope.data.percent = 0;
         }else{
-          $scope.data.percent = (response.score / response.total_distance)*100;
+          $scope.data.percent = numeral((response.score / response.total_distance)*100).format('0');
         }
       }
       $scope.data.totalDistance = numeral(response.total_distance).format('0 a') + "m";
-      $scope.data.duration = response.last_update - response.first_update;
+      $scope.data.totalScore = numeral(response.score).format('0');
+      $scope.data.duration = numeral(response.last_update - response.first_update).format('00:00:00');
     });
   }
 
