@@ -8,13 +8,12 @@ var express = require('express'),
   Task = require('./api/models/serverModel'),
   index = require('./index'),
   routes = require('./api/routes/serverRoutesBase'),
-  routesBri = require('./api/routes/apiBridgestone'),
   bodyParser = require('body-parser'),
   path = require('path'),
   engines = require('consolidate');
-    
+
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/YakaDB'); 
+mongoose.connect('mongodb://localhost/YakaDB');
 /*
 var logDirectory = path.join(__dirname, 'logs');
 //Creating Router() object
@@ -44,18 +43,18 @@ app.use(bodyParser.json());
 
 //app.use(morgan('combined', {stream: accessLogStream, skip: function (req, res) { return ( res.statusCode < 400)|| (req.url).indexOf("site") === -1 }}));
 app.set('view engine', 'html');
- 
+
 // dico all'app di servire tutto il contenuto della cartella 'public' come statico
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static('public/assets'));
 app.use('/site', express.static('public/assets/singular'));
+app.use('/api/data', express.static('public/data'));
 app.use('/oldsite', express.static('public'));
 
 
 //app.use("/sito", routersito);
 //app.use("/public", router);
 app.use("/", routes);
-app.use("/api", routesBri);
 /*
 app.use("*",function(req,res){
   res.redirect("/site/404.html");
