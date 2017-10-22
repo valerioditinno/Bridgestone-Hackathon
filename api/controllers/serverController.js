@@ -211,9 +211,6 @@ exports.sessionScore = function(req, res) {
   });
 };
 
-
-
-
 exports.myposition = function(req, res) {
   Session.aggregate( [ 
     { $match : { Site: false} }, 

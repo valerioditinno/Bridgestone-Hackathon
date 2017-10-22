@@ -296,7 +296,7 @@ App.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
           session: null,
           username: null
         },
-        resolve: requireDeps('loadGoogleMapsJS', function () { return loadGoogleMaps(); }, 'AngularGM')
+        resolve: requireDeps('loadGoogleMapsJS', function () { return loadGoogleMaps(); }, 'AngularGM', 'numeral')
       })
       .state('app.reportApp', {
         url: '/reportApp/:session/:username',
@@ -1992,7 +1992,7 @@ function GoogleMapController($scope) {
       location: {
         lat: 46.852947,
         lng: -121.760424
-      }
+      } 
     },
     {
       id: 1,
@@ -3846,12 +3846,10 @@ App.controller('GoogleMapControllerNew', GoogleMapControllerNew);
 
 
 
-function GoogleMapControllerNew(AuthenticationService, $scope, $cookies, $location, $stateParams) {
+function GoogleMapControllerNew($http, AuthenticationService, $scope, $cookies, $location, $stateParams) {
   'use strict';
   var vm = this;
-  // Demo 1
-  // ----------------------------------- 
-
+  
   $scope.data = {
     'session' : $stateParams.session,
     'username' : $stateParams.username,
@@ -3866,6 +3864,24 @@ function GoogleMapControllerNew(AuthenticationService, $scope, $cookies, $locati
     'link_y':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=y",
     'link_z':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=z",
     'link_speed':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=speed"
+  }
+
+  var Username = $stateParams.username;
+  var Session = $stateParams.session;
+
+  if(typeof Session != 'undefined'){
+    $http.get('../sessionScore?Session=' + Session + '&Username=' + Username, {
+    }).success(function (response) {
+      if(response.total_distance != 0){
+        if(response.score < 0 ){
+          $scope.data.percent = 0;
+        }else{
+          $scope.data.percent = (response.score / response.total_distance)*100;
+        }
+      }
+      $scope.data.totalDistance = numeral(response.total_distance).format('0 a') + "m";
+      $scope.data.duration = response.last_update - response.first_update;
+    });
   }
 
   $scope.$watch(function () {
@@ -3971,85 +3987,7 @@ function GoogleMapControllerNew(AuthenticationService, $scope, $cookies, $locati
   };
 
 }
-GoogleMapController.$inject = ['AuthenticationService', '$scope', '$cookies', '$location', '$stateParams'];
-
-
-
-
-
-App.controller('ReportController', ['AuthenticationService', '$scope', '$cookies', '$location', '$stateParams', 
-function(AuthenticationService, $scope, $cookies, $location, $stateParams){
-  $scope.message = '';
-
-  var lat = 41.000;
-  var lng = 12.000;
-  var center = { "lat": lat, "lng": lng};
-  setTimeout ( 
-    function(){ 
-      var lat = 41.000;
-      var lng = 12.000;
-      $scope.gmap.gmapz.options.center = new google.maps.LatLng(lat, lng);
-    }, 2000);
-
-  $scope.gmap = {
-    gmapx : {
-      options:
-        { 
-          map: {
-          zoom : 8,
-          center : new google.maps.LatLng(lat, lng)
-        }
-      }
-    },
-    gmapy : {
-      options:{
-        zoom : 8,
-        center : new google.maps.LatLng(lat, lng)
-      }
-    },
-    gmapz : {
-      options:{
-        zoom : 8,
-        center : new google.maps.LatLng(lat, lng)
-      }
-    },
-    gmapspeed : {
-      options:{
-        zoom : 8,
-        center : new google.maps.LatLng(lat, lng)
-      }
-    }
-  }
-
-  $scope.gmap.gmapz.options.center = new google.maps.LatLng(lat, lng);
-
-  $scope.data = {
-    'session' : $stateParams.session,
-    'username' : $stateParams.username,
-    'percent': 81,
-    'totalScore' : '27000',
-    'startPoint': 'Circonvallazione Nomentana, 245, 00162 Roma RM, Italy',
-    'endPoint' : 'Viale Somalia, 74, 00199 Roma RM, Italy',
-    'totalDistance': '30km',
-    'averageSpeed':'70kmh',
-    'duration': '3h12m'
-  }
-
-  $scope.$watch(function () {
-    return $scope.gmap.gmapz.options.center;
-  }, function (center) {
-    if (center) {
-      console.log(center);
-      $scope.centerLat = center.lat();
-      $scope.centerLng = center.lng();
-    }
-  });
-
-  this.updateCenter = function (lat, lng) {
-    $scope.center = new google.maps.LatLng(lat, lng);
-  };
-
-}]);
+GoogleMapController.$inject = ['$http', 'AuthenticationService', '$scope', '$cookies', '$location', '$stateParams'];
 
 App.controller('LoginController', ['$scope', '$location', 'AuthenticationService',
   function ($scope, $location, AuthenticationService) {
