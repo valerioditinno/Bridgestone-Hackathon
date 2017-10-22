@@ -8,6 +8,7 @@ var express = require('express'),
   Task = require('./api/models/serverModel'),
   index = require('./index'),
   routes = require('./api/routes/serverRoutesBase'),
+  routesBri = require('./api/routes/apiBridgestone'),
   bodyParser = require('body-parser'),
   path = require('path'),
   engines = require('consolidate');
@@ -55,6 +56,7 @@ app.use('/oldsite', express.static('public'));
 //app.use("/sito", routersito);
 //app.use("/public", router);
 app.use("/", routes);
+app.use("/api", routesBri);
 /*
 app.use("*",function(req,res){
   res.redirect("/site/404.html");
