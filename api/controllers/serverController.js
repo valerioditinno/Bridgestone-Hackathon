@@ -87,7 +87,7 @@ exports.loginSite = function(req, res) {
 
 exports.userSessions = function(req, res) {
   //console.log(req.query.Username);
-  Session.find({"Username": req.query.Username}, function(err, sessions) {
+  Session.find({"Username": req.query.Username}, null, { "sort":{ "Created_date": -1 }}, function(err, sessions) {
     if (err)
       res.send(err);
     res.json(sessions);

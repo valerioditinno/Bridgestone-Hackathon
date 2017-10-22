@@ -11240,6 +11240,15 @@ body .toast-warning {
 .gmap img {
   max-width: none;
 }
+
+.iframe  {
+  border-top-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  width: 100%;
+  height: 100%;
+}
 /* ========================================================================
    Component: vector-map.less
  ========================================================================== */

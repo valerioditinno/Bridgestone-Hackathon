@@ -1,9 +1,11 @@
 <h3>Report
     <small>Review your session</small>
 </h3>
-<div class="row" ng-hide="!data.session">
 
 
+<div data-ng-controller="GoogleMapControllerNew as gmap" class="container-fluid">
+
+    <div class="row" ng-hide="!data.session">
         <div class="col-md-12">
             <div class="">
                 <div class="panel panel-default text-center">
@@ -74,7 +76,9 @@
                         <div class="panel-title">Acceleration X Map</div>
                     </div>
 
-                    <gm-map gm-map-id="'x-map'" gm-center="gmap.gmapx.options.center" gm-zoom="gmap.gmapx.options.zoom" class="gmap"></gm-map>
+                    <div class="gmap">
+                        <iframe src="{{data.link_x}}" class="iframe"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,7 +90,9 @@
                         <div class="panel-title">Acceleration Y Map</div>
                     </div>
 
-                    <gm-map gm-map-id="'y-map'" gm-center="gmap.gmapy.options.center" gm-zoom="gmap.gmapy.options.zoom" class="gmap"></gm-map>
+                    <div class="gmap">
+                        <iframe src="{{data.link_y}}" class="iframe"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -98,7 +104,9 @@
                         <div class="panel-title">Acceleration Z Map</div>
                     </div>
 
-                    <gm-map gm-map-id="'z-map'" gm-center="gmap.gmapz.options.center" gm-zoom="gmap.gmapz.options.zoom" class="gmap"></gm-map>
+                    <div class="gmap">
+                        <iframe src="{{data.link_z}}" class="iframe"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,7 +119,9 @@
                         <div class="panel-title">Speed Map</div>
                     </div>
 
-                    <gm-map gm-map-id="'speed-map'" gm-center="gmap.gmapspeed.options.center" gm-zoom="gmap.gmapspeed.options.zoom" class="gmap"></gm-map>
+                    <div class="gmap">
+                        <iframe src="{{data.link_speed}}" class="iframe"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,3 +145,4 @@
             </div>
         </div>
     </div>
+</div>

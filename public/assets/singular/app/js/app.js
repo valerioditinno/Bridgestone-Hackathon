@@ -296,13 +296,11 @@ App.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
           session: null,
           username: null
         },
-        controller: 'ReportController',
         resolve: requireDeps('loadGoogleMapsJS', function () { return loadGoogleMaps(); }, 'AngularGM')
       })
       .state('app.reportApp', {
         url: '/reportApp/:session/:username',
         templateUrl: basepath('report.html'),
-        controller: 'ReportController',
         resolve: requireDeps('loadGoogleMapsJS', function () { return loadGoogleMaps(); }, 'AngularGM')
       })
       .state('app.tasks', {
@@ -3843,21 +3841,165 @@ App.controller('LockController', ['AuthenticationService', '$scope', '$cookies',
 }]);
 
 
+
+App.controller('GoogleMapControllerNew', GoogleMapControllerNew);
+
+
+
+function GoogleMapControllerNew(AuthenticationService, $scope, $cookies, $location, $stateParams) {
+  'use strict';
+  var vm = this;
+  // Demo 1
+  // ----------------------------------- 
+
+  $scope.data = {
+    'session' : $stateParams.session,
+    'username' : $stateParams.username,
+    'percent': 81,
+    'totalScore' : '27000',
+    'startPoint': 'Circonvallazione Nomentana, 245, 00162 Roma RM, Italy',
+    'endPoint' : 'Viale Somalia, 74, 00199 Roma RM, Italy',
+    'totalDistance': '30km',
+    'averageSpeed':'70kmh',
+    'duration': '3h12m',
+    'link_x':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=x",
+    'link_y':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=y",
+    'link_z':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=z",
+    'link_speed':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=speed"
+  }
+
+  $scope.$watch(function () {
+    return vm.center;
+  }, function (center) {
+    if (center) {
+      vm.centerLat = center.lat();
+      vm.centerLng = center.lng();
+    }
+  });
+
+  this.updateCenter = function (lat, lng) {
+    vm.center = new google.maps.LatLng(lat, lng);
+  };
+
+  // Demo 2
+  // ----------------------------------- 
+
+  this.options_x = {
+    map: {
+      center: new google.maps.LatLng(46, 12),
+      zoom: 12
+    },
+  };
+  this.options_y = {
+    map: {
+      center: new google.maps.LatLng(46, 12),
+      zoom: 12
+    },
+  };
+  this.options_z = {
+    map: {
+      center: new google.maps.LatLng(46, 12),
+      zoom: 12
+    },
+  };
+  this.options_s = {
+    map: {
+      center: new google.maps.LatLng(46, 12),
+      zoom: 12
+    },
+  };
+
+  this.volcanoes = [
+    {
+      id: 0,
+      name: 'Mount Rainier',
+      img: 'http://www.thetrackerfoundation.org/Images/MountRainier_SM.jpg',
+      location: {
+        lat: 46,
+        lng: 12
+      }
+    }
+  ];
+
+  this.triggerOpenInfoWindow = function (volcano) {
+    vm.markerEvents = [
+      {
+        event: 'openinfowindow',
+        ids: [volcano.id]
+      },
+    ];
+  };
+
+  // Demo 3
+  // ----------------------------------- 
+
+  this.options3 = {
+    map: {
+      center: new google.maps.LatLng(48, -121),
+      zoom: 6,
+      mapTypeId: google.maps.MapTypeId.TERRAIN
+    },
+    notselected: {
+      icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png'
+    },
+    selected: {
+      icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png'
+    }
+  };
+
+  // add to global scope so the map plugin can see the mutated object
+  // when we broadcast the changes
+  $scope.volcanoes = this.volcanoes;
+
+  this.getVolcanoOpts = function (volcan) {
+    return angular.extend(
+      { title: volcan.name },
+      volcan.selected ? vm.options3.selected :
+        vm.options3.notselected
+    );
+  };
+
+  this.selectVolcano = function (volcan) {
+    if (vm.volcan) {
+      vm.volcan.selected = false;
+    }
+    vm.volcan = volcan;
+    vm.volcan.selected = true;
+
+    $scope.$broadcast('gmMarkersUpdate', 'volcanoes');
+
+  };
+
+}
+GoogleMapController.$inject = ['AuthenticationService', '$scope', '$cookies', '$location', '$stateParams'];
+
+
+
+
+
 App.controller('ReportController', ['AuthenticationService', '$scope', '$cookies', '$location', '$stateParams', 
 function(AuthenticationService, $scope, $cookies, $location, $stateParams){
-  var vm = this;
   $scope.message = '';
 
   var lat = 41.000;
   var lng = 12.000;
+  var center = { "lat": lat, "lng": lng};
+  setTimeout ( 
+    function(){ 
+      var lat = 41.000;
+      var lng = 12.000;
+      $scope.gmap.gmapz.options.center = new google.maps.LatLng(lat, lng);
+    }, 2000);
 
   $scope.gmap = {
     gmapx : {
       options:
-      { map: {
-        zoom : 8,
-        center : new google.maps.LatLng(lat, lng)
-      }}
+        { 
+          map: {
+          zoom : 8,
+          center : new google.maps.LatLng(lat, lng)
+        }
+      }
     },
     gmapy : {
       options:{
@@ -3879,6 +4021,8 @@ function(AuthenticationService, $scope, $cookies, $location, $stateParams){
     }
   }
 
+  $scope.gmap.gmapz.options.center = new google.maps.LatLng(lat, lng);
+
   $scope.data = {
     'session' : $stateParams.session,
     'username' : $stateParams.username,
@@ -3891,20 +4035,18 @@ function(AuthenticationService, $scope, $cookies, $location, $stateParams){
     'duration': '3h12m'
   }
 
-  
-
   $scope.$watch(function () {
-    return vm.center;
+    return $scope.gmap.gmapz.options.center;
   }, function (center) {
     if (center) {
       console.log(center);
-      vm.centerLat = center.lat();
-      vm.centerLng = center.lng();
+      $scope.centerLat = center.lat();
+      $scope.centerLng = center.lng();
     }
   });
 
   this.updateCenter = function (lat, lng) {
-    vm.center = new google.maps.LatLng(lat, lng);
+    $scope.center = new google.maps.LatLng(lat, lng);
   };
 
 }]);

@@ -16,12 +16,8 @@
                         <th>Date</th>
                         <th>Start Point</th>
                         <th>End Point</th>
-                        <th><img src="app/img/lateral.png" height="22px"/></th>
-                        <th><img src="app/img/vertical.png" height="22px"/></th>
-                        <th><img src="app/img/front.png" height="22px"/></th>
-                        <th><img src="app/img/speed.png" height="22px"/></th>
-                        <th><img src="app/img/report.png" height="22px"/></th>
-                        <th><img src="app/img/score.png" height="22px"/></th>
+                        <th></th>
+                        <th class="visible-lg"><img src="app/img/score.png" height="22px"/></th>
                         </tr>
                       </thead>
                 <tbody>
@@ -29,12 +25,8 @@
                         <td>{{session.sessionid*1000 | date : 'dd/MM/yyyy HH:mm'}}</td>
                         <td>{{session.startpoint}}<img height="34px" ng-hide="session.startpoint != ''" ng-src="{{session.imagePath}}" /></td>
                         <td>{{session.endpoint}}<img height="34px" ng-hide="session.endpoint != ''" ng-src="{{session.imagePath}}" /></td>
-                        <td style="text-align:center"><a href="{{session.link_x}}" target="_blank"><img class="thumb32 media-object img-responsive" src="app/img/maps.png" /></a></td>
-                        <td style="text-align:center"><a href="{{session.link_y}}" target="_blank"><img class="thumb32 media-object img-responsive" src="app/img/maps.png" /></a></td>
-                        <td style="text-align:center"><a href="{{session.link_z}}" target="_blank"><img class="thumb32 media-object img-responsive" src="app/img/maps.png" /></a></td>
-                        <td style="text-align:center"><a href="{{session.link_speed}}" target="_blank"><img class="thumb32 media-object img-responsive" src="app/img/maps.png" /></a></td>
-                        <td><a ui-sref="app.report({session:'{{session.sessionid}}', username:'{{session.username}}'})">Report</a></td>
-                        <td style="text-align:center">{{session.score}}</td>
+                        <td><a ui-sref="app.report({session:'{{session.sessionid}}', username:'{{session.username}}'})"><img src="app/img/report.png" height="22px"/></a></td>
+                        <td style="text-align:center" class="visible-lg">{{session.score}}</td>
                     </tr>
                 </tbody>
             </table>
