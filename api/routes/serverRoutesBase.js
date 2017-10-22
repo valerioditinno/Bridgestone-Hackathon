@@ -20,6 +20,10 @@ router.get('/', function(req, res, next) {
   res.redirect('/site/');
 });
 
+router.get('/favicon.ico', function(req, res){
+    res.redirect('/site/app/img/favicon.ico');
+});
+
 router.get('/', function (req, res) {
     res.send(test(req));
 });

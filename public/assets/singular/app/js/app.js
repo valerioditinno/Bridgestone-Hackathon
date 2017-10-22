@@ -3853,13 +3853,13 @@ function GoogleMapControllerNew($http, AuthenticationService, $scope, $cookies, 
   $scope.data = {
     'session' : $stateParams.session,
     'username' : $stateParams.username,
-    'percent': 81,
-    'totalScore' : '27000',
-    'startPoint': 'Circonvallazione Nomentana, 245, 00162 Roma RM, Italy',
-    'endPoint' : 'Viale Somalia, 74, 00199 Roma RM, Italy',
-    'totalDistance': '30km',
-    'averageSpeed':'70kmh',
-    'duration': '3h12m',
+    'percent': 0,
+    'totalScore' : 0,
+    'startPoint': 'no data',
+    'endPoint' : 'no data',
+    'totalDistance': '0 km',
+    'averageSpeed':'0 km/h',
+    'duration': '00.00.00',
     'link_x':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=x",
     'link_y':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=y",
     'link_z':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=z",
@@ -3876,11 +3876,27 @@ function GoogleMapControllerNew($http, AuthenticationService, $scope, $cookies, 
         if(response.score < 0 ){
           $scope.data.percent = 0;
         }else{
-          $scope.data.percent = (response.score / response.total_distance)*100;
+          $scope.data.percent = numeral((response.score / response.total_distance)*100).format('0');
         }
       }
+
+      if(response.first_update != -1){
+        get_geolcode($http, response.lat_start, response.lng_start, $scope.data, 'startpoint', function(res, data_in, point){
+          data_in.startPoint = res[0];
+          
+        });
+        get_geolcode($http, response.lat_end, response.lng_end, $scope.data, 'endpoint',  function(res, data_in, point){
+          data_in.endPoint = res[0];
+        }); 
+      }else{
+        data.startPoint = 'no data';
+        data.endPoint = 'no data';
+      }
+
+      $scope.data.averageSpeed = numeral((response.total_distance / (response.last_update - response.first_update))*3600).format('0.0 a') +"m/h";
       $scope.data.totalDistance = numeral(response.total_distance).format('0 a') + "m";
-      $scope.data.duration = response.last_update - response.first_update;
+      $scope.data.totalScore = numeral(response.score).format('0');
+      $scope.data.duration = numeral(response.last_update - response.first_update).format('00:00:00');
     });
   }
 
@@ -4196,36 +4212,4 @@ function get_geolcode(http, lat, lng, data_in, point, callback) {
       });
       callback(addresses, data_in, point);
     });
-/*
-  var options = {
-      uri : 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +'&key=AIzaSyDh2ZoqiOa5x4N43XJoIWZOc__7MvHPa7I',
-      method : 'GET'
-  }; 
-  var res = '';
-  console.log(options.uri);
-  request(options, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-          res = body;
-      }
-      else {
-          res = {
-            "results" : [],
-            "status" : "ZERO_RESULTS_WITH_ERROR"
-          };
-      }
-      callback(res);
-  });*/
 }
-
-
-/**
- if(post !== null){
-              get_geolcode(post.lat, post.lng, function(data){
-                var response = JSON.parse(data);
-                if(response.status == 'OK'){
-                  start_point = response.results[0].formatted_address;
-                  console.log(start_point);
-                }
-              });
-            }
- */
