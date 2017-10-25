@@ -2817,10 +2817,14 @@ function AngularTableController($scope, $filter, ngTableParams, $cookies, $http)
         startpoint : '',
         endpoint: '',
         username: username,
-        link_x:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=x",
-        link_y:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=y",
-        link_z:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z",
-        link_speed:'../oldsite/mappasessione.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
+        link_x:'../oldsite/mappasessionelive.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=x",
+        link_y:'../oldsite/mappasessionelive.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=y",
+        link_z:'../oldsite/mappasessionelive.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z",
+        link_speed:'../oldsite/mappasessionelive.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed",
+        live_link_x:'../oldsite/mappasessionelive.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=x&live=y",
+        live_link_y:'../oldsite/mappasessionelive.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=y&live=y",
+        live_link_z:'../oldsite/mappasessionelive.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=z&live=y",
+        live_link_speed:'../oldsite/mappasessionelive.html?Username='+username+'&Session='+response[i].Timestamp+"&Coord=speed&live=y",
         score:parseInt(response[i].score),
         origin:response[i].origin});
       

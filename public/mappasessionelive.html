@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+        margin: 3px;
+      }
+      #map2 {
+        height: 33%;
+        margin: 3px;
+      }
+      #map3 {
+        height: 33%;
+        margin: 3px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 99%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      Array.prototype.max = function() {
+        return Math.max.apply(null, this);
+      };
+
+      Array.prototype.min = function() {
+        return Math.min.apply(null, this);
+      };
+
+      function findGetParameter(parameterName) {
+          var result = null,
+              tmp = [];
+          location.search
+              .substr(1)
+              .split("&")
+              .forEach(function (item) {
+                tmp = item.split("=");
+                if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+              });
+          return result;
+      }
+      var username = findGetParameter("Username");
+      var session = findGetParameter("Session");
+      var coord = findGetParameter("Coord");
+      var live = findGetParameter("live");
+      var limit = findGetParameter("Limit");
+      if(typeof (limit) === undefined || limit === null){
+        limit = 0.3;
+      }
+      if(typeof (coord) === undefined || coord === null){
+        coord = "x";
+      }
+      if(typeof (live) === undefined || live === null){
+        live = "n";
+      }
+      var map;
+      
+      function initMap() {
+
+        // Get the data from the server.
+        var flightPlanCoordinates = [] ;
+        var absmax = limit;
+
+        if(typeof (username) != undefined && typeof(session)!= undefined && username != null && session != null){
+          $getResult = $.get( "../sessionDetail?Username="+username+"&Session="+session, 
+            function(response, err) {
+              // manipulate response
+              flightPlanCoordinates = response;
+          }).done(function() {
+            if(flightPlanCoordinates.length>0){
+              map = new google.maps.Map(document.getElementById('map'), {
+                center: {"lat": flightPlanCoordinates[0].lat, "lng": flightPlanCoordinates[0].lng},
+                zoom: 18
+              });              
+            }else{
+              map = new google.maps.Map(document.getElementById('map'), {
+                center: {"lat": 41.84655, "lng": 12.62636},
+                zoom: 11
+              });
+            }
+
+            if(live === 'y'){
+
+              if(flightPlanCoordinates.length > 0)
+                var startTime = flightPlanCoordinates[0].Timestamp;
+
+              for(i = 1; i < flightPlanCoordinates.length; i++){
+                setTimeout(
+                   'generateMapLive('
+                    +'[{"lat":' 
+                    + flightPlanCoordinates[i-1].lat + ',"lng":'
+                    + flightPlanCoordinates[i-1].lng + '},{"lat":'
+                    + flightPlanCoordinates[i].lat + ',"lng":' 
+                    + flightPlanCoordinates[i].lng + '}], '+ flightPlanCoordinates[i][coord] +')',
+                  (numeral(flightPlanCoordinates[i].Timestamp - startTime).format('0') * 1000)
+                )
+                console.log(numeral(flightPlanCoordinates[i].Timestamp - startTime).format('0') * 1000);
+              }
+
+            }
+
+
+            else
+            if(coord === 'speed'){
+              var markers = []; 
+              var infowindows = [];
+              var contentStrings = [];
+              var speed_vals = [];
+              for(i = 1; i < flightPlanCoordinates.length; i++){
+                flightPlanCoordinatestemp = [{"lat":flightPlanCoordinates[i-1].lat,"lng":flightPlanCoordinates[i-1].lng},
+                {"lat":flightPlanCoordinates[i].lat,"lng":flightPlanCoordinates[i].lng}];
+                speed_vals.push(speed(flightPlanCoordinatestemp,flightPlanCoordinates[i-1].Timestamp, flightPlanCoordinates[i].Timestamp));
+                //flightPlanCoordinatestemp = flightPlanCoordinates.slice(i, i+2);
+                var flightPath = new google.maps.Polyline({
+                  path: flightPlanCoordinatestemp,
+                  geodesic: true,
+                  strokeColor: getRandomColor( Math.abs(flightPlanCoordinates[i][coord]) ),
+                  strokeOpacity: 1.0,
+                  strokeWeight: 6
+                });
+                markers.push( new google.maps.Marker({  
+                    position: flightPlanCoordinatestemp[0],  
+                    map: map,
+                    label: i
+                    // visible: false  // NB the marker is 'invisible'
+                  })
+                );
+
+
+
+
+        contentStrings.push('<div id="content">'+
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<div id="bodyContent">'+
+                    '<p>'+speed_vals[speed_vals.length-1]+' km/h</p>'+
+                    '</div>'+
+                    '</div>');
+
+        infowindows.push( new google.maps.InfoWindow({
+            content: contentStrings[contentStrings.length-1]
+          })
+        );
+
+        markers[markers.length-1].addListener('click', function() {
+          //infowindows[infowindows.length-1].open(map, markers[markers.length-1]);
+          console.log(speed_vals[speed_vals.length-1]);
+        });
+
+
+                flightPath.setMap(map);
+              }
+            }else{
+              for(i = 1; i < flightPlanCoordinates.length; i++){
+                flightPlanCoordinatestemp = [{"lat":flightPlanCoordinates[i-1].lat,"lng":flightPlanCoordinates[i-1].lng},
+                {"lat":flightPlanCoordinates[i].lat,"lng":flightPlanCoordinates[i].lng}];
+                var flightPath = new google.maps.Polyline({
+                  path: flightPlanCoordinatestemp,
+                  geodesic: true,
+                  strokeColor: getRandomColor( Math.abs(flightPlanCoordinates[i][coord]) ),
+                  strokeOpacity: 1.0,
+                  strokeWeight: 6
+                });
+                flightPath.setMap(map);
+              }
+            }
+          });
+        }
+      }
+
+      function getRandomColor_old(value = -1) {
+
+        var colors = Array("FF0000", "FF1000", "FF2000", "FF3000", "FF4000", "FF5000", "FF6000", "FF7000", "FF8000", "FF9000", "FFA000", "FFB000", "FFC000", "FFD000", "FFE000", "FFF000", "FFFF00", "F0FF00", "E0FF00", "D0FF00", "C0FF00", "B0FF00", "A0FF00", "90FF00", "80FF00", "70FF00", "60FF00", "50FF00", "40FF00", "30FF00", "20FF00", "10FF00");
+        
+        if(value >= 0 && value < colors.length){
+          color = "#"+colors[31-value];
+        }else{
+          color = "#"+colors[Math.floor(Math.random()*colors.length)];
+        }
+        return color;
+      }
+      
+      function getRandomColor(value = -1, soglia = 0.3) {
+        var colors = Array("00b3fd", "fd9700", "fd0000");
+        
+        if(value <= 0.1 ){
+          color = "#"+colors[0];
+        }else{
+          if(value <= 0.3){
+            color = "#"+colors[1];
+          }else{
+            color = "#"+colors[2];
+          }
+        }
+        return color;
+      }
+
+      function distance(lat1, lon1, lat2, lon2, unit) {
+        var radlat1 = Math.PI * lat1/180
+        var radlat2 = Math.PI * lat2/180
+        var theta = lon1-lon2
+        var radtheta = Math.PI * theta/180
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        dist = Math.acos(dist)
+        dist = dist * 180/Math.PI
+        dist = dist * 60 * 1.1515
+        if (unit=="K") { dist = dist * 1.609344 }
+        if (unit=="N") { dist = dist * 0.8684 }
+        return dist
+      }
+
+      function speed(flightPlanCoordinates, t1, t2){
+        return 3600 * distance(flightPlanCoordinates[0].lat, flightPlanCoordinates[0].lng, flightPlanCoordinates[1].lat, flightPlanCoordinates[1].lng, "K")/((t2 - t1));
+      }
+
+
+      function generateMapLive(flightPlanCoordinatestemp, flightPlanCoordinates){
+        console.log(flightPlanCoordinatestemp);
+        console.log(flightPlanCoordinates);
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinatestemp,
+          geodesic: true,
+          strokeColor: getRandomColor( Math.abs(flightPlanCoordinates) ),
+          strokeOpacity: 1.0,
+          strokeWeight: 6
+        });
+//        var map = new google.maps.Map(document.getElementById('map'));
+        map.setCenter({"lat": flightPlanCoordinatestemp[0].lat, "lng":flightPlanCoordinatestemp[0].lng});
+        flightPath.setMap(map);
+
+      }
+      
+      function generateMapLive2(flightPlanCoordinates, i ,map){
+        flightPlanCoordinatestemp = [{"lat":flightPlanCoordinates[i-1].lat,"lng":flightPlanCoordinates[i-1].lng},
+        {"lat":flightPlanCoordinates[i].lat,"lng":flightPlanCoordinates[i].lng}];
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinatestemp,
+          geodesic: true,
+          strokeColor: getRandomColor( Math.abs(flightPlanCoordinates[i]['x']) ),
+          strokeOpacity: 1.0,
+          strokeWeight: 6
+        });
+        flightPath.setMap(map);
+
+      }
+      
+    </script>
+	<script
+	  src="..\assets\js\jquery-3.2.1.min.js"></script>
+  <script
+    src=".\numeral\min\numeral.min.js"></script>
+      
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWG_AjxYCOnXkeMl-biHoneHbjktkDA2Y&callback=initMap" async defer></script>
+  </body>
+  <script>
+    
+	// You don't need google.maps.event.addDomListener(window, 'load', initialize);
+	// if you use jQuery's $(document).ready() function.
+
+	function initialize() {
+
+	}
+  </script>
+</html>
