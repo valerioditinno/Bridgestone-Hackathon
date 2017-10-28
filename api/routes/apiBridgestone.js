@@ -17,7 +17,21 @@ router.use(express.static(path.join(__dirname, 'public')));
 
 /* GET api page. */
 router.get('/', function(req, res, next) {
-  res.render('api.html');
+  res.render('api/api.html');
+});
+
+/* GET api page. */
+router.get('/file_list', function(req, res, next) {
+  const testFolder = 'public/data/';
+  const fs = require('fs');
+
+  var list = []
+  fs.readdir(testFolder, (err, files) => {
+    files.forEach(file => {
+      list.push({'filename':file});
+    });
+    res.json(list);
+  })
 });
 
 module.exports = router;
