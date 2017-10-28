@@ -231,8 +231,9 @@
       }
 
       function speed_single(flightPlanCoordinatestemp){
-        console.log(flightPlanCoordinatestemp[0].Timestamp)
-        return speed(flightPlanCoordinatestemp,flightPlanCoordinatestemp[0].Timestamp, flightPlanCoordinatestemp[1].Timestamp);
+        return numeral(
+            speed(flightPlanCoordinatestemp,flightPlanCoordinatestemp[0].Timestamp, flightPlanCoordinatestemp[1].Timestamp)
+          ).format('0');
       }
 
 
