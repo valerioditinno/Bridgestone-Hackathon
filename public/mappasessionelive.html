@@ -21,16 +21,20 @@
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
-        height: 99%;
-        margin: 0;
-        padding: 0;
+        height: 99% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      #commands {
+        position: absolute;
+        top: 7px;
+        right: 43px;
       }
     </style>
   </head>
   <body>
     <div id="map"></div>
     <script>
-
       Array.prototype.max = function() {
         return Math.max.apply(null, this);
       };
@@ -38,7 +42,6 @@
       Array.prototype.min = function() {
         return Math.min.apply(null, this);
       };
-
       function findGetParameter(parameterName) {
           var result = null,
               tmp = [];
@@ -99,11 +102,13 @@
               for(i = 1; i < flightPlanCoordinates.length; i++){
                 setTimeout(
                    'generateMapLive('
-                    +'[{"lat":' 
-                    + flightPlanCoordinates[i-1].lat + ',"lng":'
-                    + flightPlanCoordinates[i-1].lng + '},{"lat":'
-                    + flightPlanCoordinates[i].lat + ',"lng":' 
-                    + flightPlanCoordinates[i].lng + '}], '+ flightPlanCoordinates[i][coord] +')',
+                    + '[{"lat":'+ flightPlanCoordinates[i-1].lat 
+                    + ',"lng":' + flightPlanCoordinates[i-1].lng 
+                    + ',"Timestamp":' + flightPlanCoordinates[i-1].Timestamp 
+                    + '},{"lat":'+ flightPlanCoordinates[i].lat 
+                    + ',"lng":' + flightPlanCoordinates[i].lng 
+                    + ',"Timestamp":'+ flightPlanCoordinates[i].Timestamp +'}], '
+                    + flightPlanCoordinates[i][coord] +')',
                   (numeral(flightPlanCoordinates[i].Timestamp - startTime).format('0') * 1000)
                 )
                 console.log(numeral(flightPlanCoordinates[i].Timestamp - startTime).format('0') * 1000);
@@ -225,6 +230,11 @@
         return 3600 * distance(flightPlanCoordinates[0].lat, flightPlanCoordinates[0].lng, flightPlanCoordinates[1].lat, flightPlanCoordinates[1].lng, "K")/((t2 - t1));
       }
 
+      function speed_single(flightPlanCoordinatestemp){
+        console.log(flightPlanCoordinatestemp[0].Timestamp)
+        return speed(flightPlanCoordinatestemp,flightPlanCoordinatestemp[0].Timestamp, flightPlanCoordinatestemp[1].Timestamp);
+      }
+
 
       function generateMapLive(flightPlanCoordinatestemp, flightPlanCoordinates){
         console.log(flightPlanCoordinatestemp);
@@ -237,7 +247,8 @@
           strokeWeight: 6
         });
 //        var map = new google.maps.Map(document.getElementById('map'));
-        map.setCenter({"lat": flightPlanCoordinatestemp[0].lat, "lng":flightPlanCoordinatestemp[0].lng});
+        map.setCenter({"lat": flightPlanCoordinatestemp[1].lat, "lng":flightPlanCoordinatestemp[1].lng});
+        document.getElementById('speed').innerHTML = speed_single(flightPlanCoordinatestemp);
         flightPath.setMap(map);
 
       }
@@ -263,6 +274,8 @@
     src=".\numeral\min\numeral.min.js"></script>
       
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWG_AjxYCOnXkeMl-biHoneHbjktkDA2Y&callback=initMap" async defer></script>
+
+    <div id="commands"><button type="button" class="mr btn btn-oval btn-primary btn-xs"><p id="speed"></p></button></div>
   </body>
   <script>
     
@@ -273,4 +286,6 @@
 
 	}
   </script>
+  
+  <link rel="stylesheet" href="/site/app/css/app.css" data-ng-if="!app.layout.isRTL">
 </html>
