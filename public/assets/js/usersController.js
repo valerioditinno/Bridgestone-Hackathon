@@ -1,4 +1,4 @@
-angular.module('yakaserver.controllers', []).
+angular.module('yacaserver.controllers', []).
     controller('usersController', function ($scope) {
         $scope.driversList = [
             {

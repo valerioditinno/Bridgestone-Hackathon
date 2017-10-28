@@ -1,10 +1,8 @@
 /*!
  * 
- * YAKApageTitle - Bootstrap Admin Theme + AngularJS
+ * YACA 
  * 
- * Author: @geedmo
- * Website: http://geedmo.com
- * License: http://themeforest.net/licenses/standard?license=regular
+ * Author: @edama87
  * 
  */
 
@@ -22,7 +20,7 @@ var App = angular.module('singular', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCo
     // Scope Globals
     // ----------------------------------- 
     $rootScope.app = {
-      name: 'YAKA',
+      name: 'YACA',
       description: 'web application',
       year: ((new Date()).getFullYear()),
       viewAnimation: 'ng-fadeInLeft2',
@@ -104,7 +102,7 @@ App.controller('AppController',
 
       // Create your own per page title here
       $rootScope.pageTitle = function () {
-        return 'YAKA' + ' | ' + 'Web Application';
+        return 'YACA' + ' | ' + 'Web Application';
       };
 
       // Restore layout settings

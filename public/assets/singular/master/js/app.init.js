@@ -22,7 +22,7 @@ var App = angular.module('singular', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCo
     // Scope Globals
     // ----------------------------------- 
     $rootScope.app = {
-      name: 'YAKA',
+      name: 'YACA',
       description: 'Web Application',
       year: ((new Date()).getFullYear()),
       viewAnimation: 'ng-fadeInLeft2',

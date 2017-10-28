@@ -1,4 +1,4 @@
-var app = angular.module('yakaserver', []);
+var app = angular.module('yacaserver', []);
 
 app.controller('apiCtrl', function ($http, $scope) {
         $scope.fileList = [];
