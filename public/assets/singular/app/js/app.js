@@ -3867,7 +3867,11 @@ function GoogleMapControllerNew($http, AuthenticationService, $scope, $cookies, 
     'link_x':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=x",
     'link_y':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=y",
     'link_z':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=z",
-    'link_speed':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=speed"
+    'link_speed':'../oldsite/mappasessione.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=speed",
+    'live_link_x':'../oldsite/mappasessionelive.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=x&live=y",
+    'live_link_y':'../oldsite/mappasessionelive.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=y&live=y",
+    'live_link_z':'../oldsite/mappasessionelive.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=z&live=y",
+    'live_link_speed':'../oldsite/mappasessionelive.html?Username='+$stateParams.username+'&Session='+$stateParams.session+"&Coord=speed&live=y"
   }
 
   var Username = $stateParams.username;
