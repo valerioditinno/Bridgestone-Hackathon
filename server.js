@@ -50,13 +50,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static('public/assets'));
 app.use('/site', express.static('public/assets/singular'));
 app.use('/api/data', express.static('public/data'));
+app.use('/datasite', express.static('public/api'));
 app.use('/oldsite', express.static('public'));
 
 
 //app.use("/sito", routersito);
 //app.use("/public", router);
-app.use("/", routes);
 app.use("/api", routesBri);
+app.use("/", routes);
 /*
 app.use("*",function(req,res){
   res.redirect("/site/404.html");

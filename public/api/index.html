@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
       <title>Yaka api</title>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-route.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
@@ -32,19 +34,12 @@
   data: [gps0:"lat, long", acceleration0:"x, y, z", ...., gpsN:"lat, long", accelerationN:"x, y, z"]
 }
             </pre >
-            <p>To download the data use http get to http://ec2-13-58-154-188.us-east-2.compute.amazonaws.com:3335/api/nome_file.csv</p>
+            <p>To download the data use http get to http://ec2-13-58-154-188.us-east-2.compute.amazonaws.com:3335/api/data/[nome_file.csv]</p>
             <p>List of all avaible files:</p>
 
-            <div ng-repeat="item in fileList">
-              <p>prova1{{item.filename}}</p>
-            </div>
-
-            <div ng-model="fileList">
-              <p>prova2{{fileList[0].filename}}</p>
-            </div>
-
-            <h1 ng-repeat="value in [1, 2, 3]">prova3{{value}}</h1>
-
+            <ul>
+              <li ng-repeat="item in fileList">{{ item.filename }}</li>
+            </ul>
         </div>
     </div>
 </body>
