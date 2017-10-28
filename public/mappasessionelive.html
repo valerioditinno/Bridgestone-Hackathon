@@ -21,14 +21,26 @@
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
-        height: 99% !important;
+        height: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
       }
       #commands {
         position: absolute;
-        top: 7px;
+        bottom: 17px;
         right: 43px;
+      }
+      #commands p {
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+        left: 0px;
+        color: white;
+        text-align: center;    
+        margin-bottom: 0px;
+      }
+      #commands font{
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
       }
     </style>
   </head>
@@ -97,7 +109,7 @@
             if(live === 'y'){
 
               if(flightPlanCoordinates.length > 0)
-                var startTime = flightPlanCoordinates[0].Timestamp;
+                var startTime = flightPlanCoordinates[1].Timestamp;
 
               for(i = 1; i < flightPlanCoordinates.length; i++){
                 setTimeout(
@@ -249,7 +261,8 @@
         });
 //        var map = new google.maps.Map(document.getElementById('map'));
         map.setCenter({"lat": flightPlanCoordinatestemp[1].lat, "lng":flightPlanCoordinatestemp[1].lng});
-        document.getElementById('speed').innerHTML = speed_single(flightPlanCoordinatestemp);
+        document.getElementById('speed').innerHTML = (isNaN (speed_single(flightPlanCoordinatestemp)) ? 0 : speed_single(flightPlanCoordinatestemp));
+        console.log( "speed: " + speed_single(flightPlanCoordinatestemp));
         flightPath.setMap(map);
 
       }
@@ -276,7 +289,7 @@
       
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWG_AjxYCOnXkeMl-biHoneHbjktkDA2Y&callback=initMap" async defer></script>
 
-    <div id="commands"><button type="button" class="mr btn btn-oval btn-primary btn-xs"><p id="speed"></p></button></div>
+    <div id="commands"><img src="/site/app/img/dash2.png" height="70px"/><p><font size="5px" id="speed">0</font><br><em><font size="1px">km/h</font></em></p></div>
   </body>
   <script>
     
