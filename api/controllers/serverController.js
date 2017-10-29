@@ -242,6 +242,19 @@ exports.ranking = function(req, res) {
 };
 
 
+exports.stats = function(req, res) {
+  Session.aggregate( [ 
+    { $match : { Site: false} }, 
+    { $group: { _id : 0 , totalScore: { $sum: "$score" }, totalError: { $sum: "$total_error"} , totalDistance: { $sum: "$total_distance"} , count: { $sum: 1 } } }, 
+    { $sort: { totalScore: -1} } 
+  ],
+  function(err, ranking) {
+    if (err)
+      res.send(err);
+    res.json(ranking);
+  });
+};
+
 function extractTaskAvg(task, uuid){
     var data = task.Data;
     var tasksList = data.match(regex_avg_gps); 

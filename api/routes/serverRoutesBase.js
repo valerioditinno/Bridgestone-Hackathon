@@ -64,6 +64,10 @@ router.get('/ranking',function (req, res) {
     controller.ranking(req, res);
 });
 
+router.get('/stats',function (req, res) {
+    controller.stats(req, res);
+});
+
 router.get('/myposition',function (req, res) {
     controller.myposition(req, res);
 });
