@@ -222,7 +222,11 @@ exports.myposition = function(req, res) {
       res.send(err);
     else{
       var index = ranking.map(function(d) { return d['user']; }).indexOf(req.query.Username);
-      res.json({'position': index+1});
+      var ret = {
+        'position': index+1,
+        'data': (index > -1) ? ranking[index] : {}
+      }
+      res.json(ret);
     }
   });
 };

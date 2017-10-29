@@ -8,8 +8,6 @@
 
 if (typeof $ === 'undefined') { throw new Error('This application\'s JavaScript requires jQuery'); }
 
-
-
 var App = angular.module('singular', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCookies', 'pascalprecht.translate', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'cfp.loadingBar', 'ui.utils'])
   .run(["$rootScope", "$state", "$stateParams", '$localStorage', '$cookies', function ($rootScope, $state, $stateParams, $localStorage, $cookies) {
     // Set reference to access them from any scope
@@ -2742,6 +2740,13 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
    $scope.data =  [];
    $scope.rank = '';
    $scope.loading = 'app/img/loading.gif';
+
+   $scope.stats = {
+    "totalScore": 0,
+    "totalError": 0,
+    "totalDistance": 0,
+    "count": 0
+  };
    
    $http.get('../ranking', {
    }).success(function (response) {
@@ -2757,8 +2762,15 @@ App.service('sidebarMemu', ["$rootScope", "$http", function ($rootScope, $http) 
         });
      }
    });
-
    
+   $http.get('../stats', {
+    }).success(function (response) {
+      $scope.stats.totalScore = numeral(response[0].totalScore).format('0,00 a');
+      $scope.stats.totalError = numeral(response[0].totalError).format('0 a');
+      $scope.stats.totalDistance = numeral(response[0].totalDistance).format('0,00 a');
+      $scope.stats.count = response[0].count;
+    });
+
    
   $http.get('../myposition?Username='+username, {
     }).success(function (response) {
